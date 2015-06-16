@@ -8,7 +8,7 @@ platformTarget in Android := "android-21"
 
 name := "shadowsocks"
 
-compileOrder in Compile := CompileOrder.JavaThenScala
+compileOrder in Compile := CompileOrder.Mixed
 
 ndkJavah in Android := List()
 

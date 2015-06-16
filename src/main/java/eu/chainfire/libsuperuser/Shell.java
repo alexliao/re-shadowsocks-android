@@ -515,7 +515,7 @@ public class Shell {
         }
     }
 
-    private interface OnResult {
+    public interface OnResult {
         // for any onCommandResult callback
         public static final int WATCHDOG_EXIT = -1;
         public static final int SHELL_DIED = -2;
