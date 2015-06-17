@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="defaultAnim" parent="@android:style/Animation.Activity" mce_bogus="1">      
+		<item name="android:activityOpenEnterAnimation">@anim/re_slide_in_right</item>            
+		<item name="android:activityOpenExitAnimation">@anim/re_shrink_fade_out_center</item>            
+		<item name="android:activityCloseEnterAnimation">@anim/re_grow_fade_in_center</item>     
+		<item name="android:activityCloseExitAnimation">@anim/re_slide_out_right</item>
+	</style>
+
+	<style name="noAnim" parent="@android:style/Animation.Activity" mce_bogus="1">      
+		<item name="android:activityOpenEnterAnimation">@anim/re_nothing</item>            
+		<item name="android:activityOpenExitAnimation">@anim/re_nothing</item>            
+		<item name="android:activityCloseEnterAnimation">@anim/re_nothing</item>     
+		<item name="android:activityCloseExitAnimation">@anim/re_nothing</item>
+	</style>
+
+</resources>

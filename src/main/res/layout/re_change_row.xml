@@ -1,0 +1,9 @@
+<TextView  xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/txtChange" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:drawableLeft="@drawable/re_change_mark"
+		android:textSize="@dimen/textSize"
+		android:drawablePadding="5dp"
+		android:padding="5dp"
+/>

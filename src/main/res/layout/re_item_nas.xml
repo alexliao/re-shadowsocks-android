@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+    >
+	<LinearLayout android:id="@+id/viewItem"
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		style="@style/item"
+		android:padding="10dp"
+	    >
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+		    >
+		    <ImageView android:id="@+id/imgFlag"
+		        android:layout_width="45dp"
+		        android:layout_height="wrap_content"
+		        style="@style/flag"
+		        android:adjustViewBounds="true"
+		        android:layout_marginRight="5dp"
+		        />
+	    	<TextView android:id="@+id/txtName" 
+	    	    android:text="城市"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="18sp"
+			/>
+			<LinearLayout android:id="@+id/viewProgress"
+				android:orientation="vertical"
+				android:layout_width="73dp"
+				android:layout_height="wrap_content"
+				android:gravity="right"
+				android:visibility="gone"
+				>
+				<RatingBar android:id="@+id/ratingBar"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    style="@style/ratingBar"
+				    android:visibility="gone"
+				    />
+				<ProgressBar android:id="@+id/progressBar" 
+					style="@style/ProgressBar"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+				/>
+				<TextView android:id="@+id/txtSizeSent"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+					android:text="@string/downloading_queued"
+					android:textSize="12sp"
+					android:textColor="@color/grey"
+				/>
+			</LinearLayout>
+	    </LinearLayout>
+		<TextView android:id="@+id/txtPublicInfo"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+			android:text="@string/route_public_info_x"
+			android:textSize="12sp"
+			android:textColor="@color/grey"
+			android:layout_marginLeft="34dp"
+		/>
+			
+	</LinearLayout>
+</LinearLayout>

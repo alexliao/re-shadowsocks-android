@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    
+    <RelativeLayout android:id="@+id/viewFront" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    android:paddingBottom="70dp"
+	    android:visibility="visible"
+        >
+	    <ImageView android:id="@+id/imgHeader" 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:scaleType="fitXY"
+	        android:src="@drawable/re_header"
+	        android:clickable="true"
+	        />
+	    <ImageView android:id="@+id/btnMenu"
+	        android:layout_width="32dp"
+	        android:layout_height="32dp"
+	        android:scaleType="centerInside"
+	        android:src="@drawable/re_ic_menu_moreoverflow_normal_holo_light"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginTop="15dp"
+	        android:layout_marginRight="15dp"
+	        android:background="@drawable/re_nav_btn_bg"
+	        android:clickable="true"
+	        />
+	    <RelativeLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="20dp"
+	        >
+		    <ImageView android:id="@+id/btnLogo"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/re_logo"
+		        android:clickable="true"
+				android:paddingBottom="6dp"		        
+		        />
+	        <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/re_app_name"
+		        android:textSize="18sp"
+		        android:textColor="@color/main_color"
+		        android:layout_alignBottom="@id/btnLogo"
+		        android:layout_toRightOf="@id/btnLogo"
+		        android:layout_marginLeft="-12dp"
+	            />
+	    </RelativeLayout>
+        <ImageView
+            android:id="@+id/btnHome"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignBottom="@+id/imgHeader"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="22dp"
+            android:layout_marginLeft="5dp"
+            android:clickable="true"
+            android:src="@drawable/re_ic_logo" 
+            android:visibility="invisible"
+            />
+	    <TextView android:id="@+id/txtTitle"
+	        android:text="@string/slogon"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="18sp"
+	        android:textColor="@color/re_title"
+			android:layout_alignBottom="@id/imgHeader"
+			android:layout_marginBottom="20dp"
+			android:layout_centerHorizontal="true"
+			android:clickable="true"
+	        />
+		 <ProgressBar android:id="@+id/loading"
+			style="@android:style/Widget.ProgressBar.Small"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+			android:layout_alignBottom="@id/imgHeader"
+			android:layout_marginBottom="30dp"
+			android:layout_marginRight="22dp"
+			android:visibility="invisible"
+		    />
+	   	</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/viewBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="70dp"
+        android:visibility="invisible" >
+
+        <ImageView
+            android:id="@+id/imgHeaderBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/re_header" /> 
+
+        
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imgHeaderBack"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="26dp"
+            android:layout_marginRight="15dp"
+            android:clickable="true"
+            android:src="@drawable/re_ic_action_cancel" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            >
+            <Button android:id="@+id/btnUpdates"
+                style="@style/nav_btn"
+                android:drawableTop="@drawable/re_ic_action_about"
+                android:text="@string/updates" 
+                />
+        </LinearLayout>
+        
+    </RelativeLayout>
+
+</RelativeLayout>

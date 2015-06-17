@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/box"
+    android:paddingTop="@dimen/headerHeightCollapsed"
+    >
+    <LinearLayout 
+	    android:orientation="vertical"
+		android:layout_width="match_parent" 
+		android:layout_height="match_parent"
+        >
+	    <ListView android:id="@+id/list" 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:divider="@color/none"
+	        />
+
+		<Button android:id="@+id/btnStart" 
+			android:text="@string/start_testspeed"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:enabled="false"
+		/>
+		<Button android:id="@+id/btnStop" 
+			android:text="@string/stop_testspeed"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:visibility="gone"
+		/>
+	</LinearLayout>
+</RelativeLayout>    

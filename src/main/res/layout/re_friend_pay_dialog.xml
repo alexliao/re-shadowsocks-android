@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:text="@string/friend_pay_prompt2"
+        android:textColor="#888888"
+        android:textSize="18sp"
+        android:visibility="gone"
+        />
+    
+    <TextView 
+        android:id="@+id/txtPrompt"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:text="@string/friend_pay_prompt"
+        android:textColor="#888888"
+        android:textSize="18sp"
+        />
+            
+    <EditText
+        android:id="@+id/editName"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_margin="@dimen/padding"
+        android:maxLength="20"
+        android:scrollHorizontally="true"
+        android:gravity="fill_horizontal"
+        android:textColor="#888888"
+        android:textSize="18sp"
+        />
+
+</LinearLayout>

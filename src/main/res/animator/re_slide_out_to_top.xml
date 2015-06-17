@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:interpolator="@android:interpolator/decelerate_quad"
+	android:valueFrom="0dp" android:valueTo="-800dp"
+	android:valueType="floatType"
+	android:propertyName="translationY"
+	android:duration="@integer/config_longAnimTime" />

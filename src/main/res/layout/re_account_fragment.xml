@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/box"
+    android:paddingTop="@dimen/headerHeightCollapsed"
+    >
+    <LinearLayout 
+	    android:orientation="vertical"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+        >
+	    <TextView android:id="@+id/txtType"
+	        style="@style/account_txt"
+			android:text="@string/account_type_x"
+	        />
+	    <TextView android:id="@+id/txtExpires"
+	        style="@style/account_txt"
+			android:text="@string/account_expires_x"
+	        />
+	    
+		<LinearLayout android:id="@+id/divider1"
+		    style="@style/divider" 
+		    android:layout_marginTop="@dimen/padding"
+		    android:layout_marginBottom="@dimen/padding"
+		    />
+	    
+	    <TextView android:id="@+id/txtNoBinding"
+	        style="@style/account_txt"
+		    android:text="@string/account_no_binding" 
+		    android:visibility="gone"
+	        />
+		<TextView android:id="@+id/txtBindingEmail"
+	        style="@style/account_txt"
+	        android:layout_width="match_parent"
+	        android:drawableRight="@drawable/re_ic_action_edit"
+	        android:clickable="true"
+			android:visibility="gone"
+	        />
+		</LinearLayout>
+			
+	<Button
+	    android:id="@+id/btnBuy"
+	    android:layout_width="90dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:text="@string/buy" />
+
+    <LinearLayout
+	    android:orientation="vertical"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		>
+	    <LinearLayout
+		    android:orientation="horizontal"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			>
+       		<Button android:id="@+id/btnSignup" 
+				android:text="@string/signup"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+			/>
+	        <Button android:id="@+id/btnSignin" 
+				android:text="@string/signin"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+			/>
+        </LinearLayout>
+		<Button android:id="@+id/btnSignout" 
+			android:text="@string/signout"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:visibility="gone"
+		/>
+	</LinearLayout>
+</RelativeLayout>

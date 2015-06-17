@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="defaultActivity" parent="@android:style/Theme.Holo.Light" mce_bogus="1">          
+		<item name="android:windowAnimationStyle">@style/defaultAnim</item>         
+        <item name="android:windowBackground">@drawable/re_bg</item>
+        <item name="android:windowNoTitle">true</item>
+	</style>
+
+	<style name="defaultDialog" parent="@android:style/Theme.Holo.Light.Dialog" mce_bogus="1">          
+	</style>
+	
+	<style name="defaultActivity_noAnim"  parent="defaultActivity" mce_bogus="1">          
+		<item name="android:windowAnimationStyle">@style/noAnim</item>         
+	</style>
+ 
+</resources>

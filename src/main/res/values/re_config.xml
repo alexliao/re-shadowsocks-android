@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The duration (in milliseconds) of a short animation. -->
+    <integer name="config_shortAnimTime">150</integer>
+    
+    <!-- The duration (in milliseconds) of a medium-length animation. -->
+    <integer name="config_mediumAnimTime">300</integer>
+    
+    <!-- The duration (in milliseconds) of a long animation. -->
+    <integer name="config_longAnimTime">600</integer>
+
+    <!-- The duration (in milliseconds) of a long animation. -->
+    <integer name="config_superLongAnimTime">3000</integer>
+    
+    <!-- Allow the menu hard key to be disabled in LockScreen on some devices -->
+    <bool name="config_disableMenuKeyInLockScreen">false</bool>
+    
+</resources>

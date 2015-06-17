@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="190dp"
+    android:layout_height="wrap_content"
+    >
+    <RelativeLayout android:id="@+id/viewOff"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:clickable="true"
+        >
+		<ImageView android:id="@+id/imgBodyOff"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/re_switcher_body_off" 
+		    android:layout_centerInParent="true"
+		    />    
+		<ImageView android:id="@+id/imgCircleOff"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/re_switcher_circle_off" 
+			android:layout_alignParentLeft="true"
+		    />    
+	</RelativeLayout>
+    <RelativeLayout android:id="@+id/viewOn"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:clickable="true"
+	    android:visibility="invisible"
+        >
+		<ImageView android:id="@+id/imgBodyOn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/re_switcher_body_on" 
+		    android:layout_centerInParent="true"
+		    />    
+		<ImageView android:id="@+id/imgCircleOn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/re_switcher_circle_on" 
+			android:layout_alignParentRight="true"
+		    />    
+	</RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/box"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/headerHeightCollapsed"
+    >
+	<ScrollView android:id="@+id/panel" 
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent"
+		android:fadingEdge="none"
+		android:scrollbars="none"
+		android:layout_weight="1"
+		>
+		<LinearLayout 
+		    android:orientation="vertical"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:paddingBottom="@dimen/padding"	    
+			>
+			<TextView 
+			    android:text="@string/re_app_name"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:gravity="bottom"
+				android:textSize="32sp"
+			/>
+			<TextView 
+			    android:text="@string/slogon"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/textSize"
+				android:gravity="bottom"
+			/>
+			<TextView android:id="@+id/txtVersionName" 
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/textSize"
+				android:textStyle="bold"
+				android:gravity="bottom"
+				android:layout_marginBottom="@dimen/padding"
+			/>
+			<TextView android:id="@+id/txtContact"  
+				android:text="@string/website" 
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/textSize"
+				android:autoLink="all"
+				android:clickable="true"
+				android:layout_marginBottom="@dimen/padding"
+			/>
+			<TextView 
+				android:text="@string/about_des" 
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/textSize"
+				android:textIsSelectable="true"
+				android:layout_marginBottom="@dimen/padding"
+			/>
+			<TextView android:id="@+id/txtTerms"  
+				android:text="@string/tos" 
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/textSize"
+				android:clickable="true"
+				android:layout_marginBottom="@dimen/padding"
+			/>
+			<LinearLayout android:id="@+id/checking"
+			    android:orientation="horizontal"
+				android:layout_width="fill_parent" 
+				android:layout_height="24dp"
+				android:gravity="center_vertical"
+				android:visibility="gone"
+				>
+				<ProgressBar
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					style="@android:style/Widget.ProgressBar.Small.Inverse"
+					android:layout_marginRight="10dp"
+				/>
+				<TextView 
+					android:text="@string/checking_update" 
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:textSize="@dimen/textSize"
+					>
+				</TextView>
+			</LinearLayout>
+		    <TextView android:id="@+id/txtUp2Date"
+				android:text="@string/up2date" 
+				android:layout_width="fill_parent"
+				android:layout_height="24dp"
+				android:textSize="@dimen/textSize"
+				android:drawableLeft="@drawable/re_up2date"
+				android:drawablePadding="5dp"
+				android:gravity="center_vertical"
+				android:visibility="gone"
+			/>
+			<TextView android:id="@+id/txtNotUp2Date"
+				android:text="@string/not_up2date" 
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/textSize"
+				android:visibility="gone"
+			/>
+			<com.biganiseed.reindeer.util.HeightListView android:id="@+id/listChanges"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:clipChildren="false"
+				android:divider="#888888"
+				android:dividerHeight="1px"
+				android:cacheColorHint="#00000000"
+				android:scrollbars="none"
+				android:headerDividersEnabled="false"
+				android:footerDividersEnabled="false"
+			/>
+		</LinearLayout>
+	</ScrollView>
+	<LinearLayout
+	    android:orientation="vertical"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/padding"	    
+		>
+		<Button android:id="@+id/btnUpgrade" 
+			android:text="@string/upgrade"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:visibility="gone"
+		/>
+		<Button android:id="@+id/btnUpdates" 
+			android:text="@string/updates"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+		/>
+	</LinearLayout>
+</LinearLayout>

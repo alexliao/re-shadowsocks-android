@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item
+        android:id="@+id/menu_account"
+        android:title="@string/menu_account"/>
+	<item
+        android:id="@+id/menu_plans"
+        android:title="@string/menu_plans"/>
+		<item
+        android:id="@+id/menu_nas"
+        android:title="@string/menu_nas"/>
+<!-- 	<item
+        android:id="@+id/menu_plans"
+        android:title="@string/menu_plans"/>
+ -->
+ 	<item
+        android:id="@+id/menu_help"
+        android:title="@string/menu_help"/>
+	<item
+        android:id="@+id/menu_share"
+        android:title="@string/menu_share"/>
+	<item
+        android:id="@+id/menu_updates"
+        android:title="@string/menu_updates"/>
+		<item
+        android:id="@+id/menu_about"
+        android:title="@string/menu_about"/>
+</menu>

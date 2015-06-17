@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/box"
+    android:paddingTop="@dimen/headerHeightCollapsed"
+    android:orientation="vertical"
+    >
+	<WebView android:id="@+id/webview" 
+		android:layout_width="match_parent" 
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+	    />
+	<CheckBox android:id="@+id/chkBypass"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/bypass_chn"
+		android:layout_marginTop="@dimen/padding"	    
+	    />
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+		android:layout_marginTop="@dimen/padding"	    
+	    >
+	    <Button android:id="@+id/btnFlushDns"
+	        android:text="@string/flush_dns"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+			android:layout_weight="1"
+	        />
+	    <Button android:id="@+id/btnSupport"
+	        android:text="@string/menu_support"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+			android:layout_weight="1"
+	        />
+	</LinearLayout>
+</LinearLayout>

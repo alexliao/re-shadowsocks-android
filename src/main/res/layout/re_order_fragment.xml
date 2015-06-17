@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/box"
+    android:paddingTop="@dimen/headerHeightCollapsed"
+    >
+
+   	<RelativeLayout android:id="@+id/radioPlanBack" 
+   	    style="@style/item"        
+   	    android:layout_centerHorizontal="true"
+   	    >
+       	<RadioButton
+       	    android:id="@+id/radioPlan"
+       	    style="@style/plan"
+       	    android:checked="true" />
+       	<TextView android:id="@+id/txtPrice" 
+     	    style="@style/price"
+       	    android:layout_alignBaseline="@id/radioPlan"
+       	    />
+   	</RelativeLayout>
+	
+	<TextView android:id="@+id/txtPaid"
+	   android:text="@string/pay_for_redundant"
+       android:layout_width="@dimen/pay_button_width"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_below="@id/radioPlanBack"
+       android:layout_margin="@dimen/padding"
+       android:visibility="gone"
+    />
+   	
+   	<LinearLayout android:id="@+id/viewPayButtons"
+   	    android:orientation="vertical"
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:visibility="invisible"
+   	    >
+	    <Button
+	        android:id="@+id/btnPayViaGoogle"
+	        android:text="@string/pay_via_google"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+		    android:layout_marginBottom="@dimen/padding"
+	        />
+   	    <Button
+	        android:id="@+id/btnPayOnPhone"
+	        android:text="@string/pay_on_phone"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+		    android:layout_marginBottom="@dimen/padding"
+	        />
+   	    <Button
+	        android:id="@+id/pcpayButton"
+	        android:text="@string/pc_pay"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+		    android:layout_marginBottom="@dimen/padding"
+	        />
+		<Button
+	        android:id="@+id/friendpayButton"
+	        android:text="@string/friend_pay"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        />
+
+   	</LinearLayout>
+	   		
+</RelativeLayout>

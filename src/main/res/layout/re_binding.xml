@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding" 
+    android:isScrollContainer="true"
+    >
+    
+	<EditText
+	    android:id="@+id/editEmail"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:hint="@string/binding_email_hint"
+	    android:inputType="textEmailAddress"
+	    android:selectAllOnFocus="true"
+	    android:singleLine="true" />
+
+	<EditText
+	    android:id="@+id/editPassword"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/editEmail"
+	    android:hint="@string/binding_password_hint"
+	    android:inputType="textPassword"
+	    android:singleLine="true"
+	    android:selectAllOnFocus="true"
+	    />
+	<EditText
+	    android:id="@+id/editPasswordConfirm"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/editPassword"
+	    android:hint="@string/binding_password_confirm_hint"
+	    android:inputType="textPassword"
+	    android:singleLine="true"
+	    android:selectAllOnFocus="true"
+	    android:visibility="gone"
+	    />
+		
+	<LinearLayout
+	    android:orientation="horizontal"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_below="@id/editPasswordConfirm"
+		android:layout_marginTop="@dimen/padding"
+		>
+		<Button android:id="@+id/btnCancel" 
+			android:text="@android:string/cancel"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+		/>
+	    <Button android:id="@+id/btnOk" 
+			android:text="@android:string/ok"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+		/>
+	</LinearLayout>
+</RelativeLayout>
