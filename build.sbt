@@ -2,7 +2,7 @@ import android.Keys._
 
 import android.Dependencies.{apklib,aar}
 
-android.Plugin.androidBuild
+android.Plugin.androidBuildAar
 
 platformTarget in Android := "android-21"
 
