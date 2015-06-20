@@ -54,3 +54,5 @@ proguardOptions in Android ++= Seq("-keep class android.support.v4.app.** { *; }
           "-keepattributes *Annotation*",
           "-dontwarn org.xbill.**",
           "-dontwarn com.actionbarsherlock.**")
+
+javacOptions ++= Seq("-source", "1.7", "-target", "1.7")          

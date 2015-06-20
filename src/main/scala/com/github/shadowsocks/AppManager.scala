@@ -222,49 +222,49 @@ class AppManager extends Activity with OnCheckedChangeListener with OnClickListe
     }
   }
 
-  protected override def onOptionsItemSelected(item: MenuItem): Boolean = {
-    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE).asInstanceOf[ClipboardManager]
-    val prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext)
-    item.getItemId match {
-      case R.id.action_export =>
-        val bypass = prefs.getBoolean(Key.isBypassApps, false)
-        val proxiedAppString = prefs.getString(Key.proxied, "")
-        val clip = ClipData.newPlainText(Key.proxied, bypass + " " + proxiedAppString)
-        clipboard.setPrimaryClip(clip)
-        Toast.makeText(this, R.string.action_export_msg, Toast.LENGTH_SHORT).show()
-        return true
-      case R.id.action_import =>
-        if (clipboard.hasPrimaryClip) {
-          val clipdata = clipboard.getPrimaryClip
-          val label = clipdata.getDescription.getLabel
-          if (label == Key.proxied) {
-            val proxiedAppSequence = clipdata.getItemAt(0).getText
-            if (proxiedAppSequence != null) {
-              val proxiedAppString = proxiedAppSequence.toString
-              if (!proxiedAppString.isEmpty) {
-                val array = proxiedAppString.split(" ")
-                val bypass = array(0).toBoolean
-                val apps = if (array.size > 1) array(1) else ""
-                prefs.edit.putBoolean(Key.isBypassApps, bypass).commit()
-                prefs.edit.putString(Key.proxied, apps).commit()
-                Toast.makeText(this, R.string.action_import_msg, Toast.LENGTH_SHORT).show()
-                // Restart activity
-                val intent = getIntent
-                finish()
-                startActivity(intent)
-                return true
-              }
-            }
-          }
-        }
-        Toast.makeText(this, R.string.action_import_err, Toast.LENGTH_SHORT).show()
-        return false
-      case android.R.id.home =>
-        navigateUpTo(getParentActivityIntent)
-        return true
-    }
-    super.onOptionsItemSelected(item)
-  }
+  // protected override def onOptionsItemSelected(item: MenuItem): Boolean = {
+  //   val clipboard = getSystemService(Context.CLIPBOARD_SERVICE).asInstanceOf[ClipboardManager]
+  //   val prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext)
+  //   item.getItemId match {
+  //     case R.id.action_export =>
+  //       val bypass = prefs.getBoolean(Key.isBypassApps, false)
+  //       val proxiedAppString = prefs.getString(Key.proxied, "")
+  //       val clip = ClipData.newPlainText(Key.proxied, bypass + " " + proxiedAppString)
+  //       clipboard.setPrimaryClip(clip)
+  //       Toast.makeText(this, R.string.action_export_msg, Toast.LENGTH_SHORT).show()
+  //       return true
+  //     case R.id.action_import =>
+  //       if (clipboard.hasPrimaryClip) {
+  //         val clipdata = clipboard.getPrimaryClip
+  //         val label = clipdata.getDescription.getLabel
+  //         if (label == Key.proxied) {
+  //           val proxiedAppSequence = clipdata.getItemAt(0).getText
+  //           if (proxiedAppSequence != null) {
+  //             val proxiedAppString = proxiedAppSequence.toString
+  //             if (!proxiedAppString.isEmpty) {
+  //               val array = proxiedAppString.split(" ")
+  //               val bypass = array(0).toBoolean
+  //               val apps = if (array.size > 1) array(1) else ""
+  //               prefs.edit.putBoolean(Key.isBypassApps, bypass).commit()
+  //               prefs.edit.putString(Key.proxied, apps).commit()
+  //               Toast.makeText(this, R.string.action_import_msg, Toast.LENGTH_SHORT).show()
+  //               // Restart activity
+  //               val intent = getIntent
+  //               finish()
+  //               startActivity(intent)
+  //               return true
+  //             }
+  //           }
+  //         }
+  //       }
+  //       Toast.makeText(this, R.string.action_import_err, Toast.LENGTH_SHORT).show()
+  //       return false
+  //     case android.R.id.home =>
+  //       navigateUpTo(getParentActivityIntent)
+  //       return true
+  //   }
+  //   super.onOptionsItemSelected(item)
+  // }
 
   protected override def onCreateOptionsMenu(menu: Menu): Boolean = {
     val inflater = getMenuInflater()
