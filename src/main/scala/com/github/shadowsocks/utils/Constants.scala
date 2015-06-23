@@ -40,6 +40,7 @@
 package com.github.shadowsocks.utils
 
 import android.content.{Intent, SharedPreferences}
+import scala.reflect.BeanProperty
 
 object Executable {
   val REDSOCKS = "redsocks"
@@ -58,7 +59,8 @@ object Msg {
 }
 
 object Path {
-  val BASE = "/data/data/com.github.shadowsocks/"
+  // val BASE = "/data/data/com.github.shadowsocks/"
+  @BeanProperty var BASE = "" // must set the value at project application.onCreate
 }
 
 object Key {

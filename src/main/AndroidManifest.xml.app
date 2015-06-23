@@ -16,7 +16,7 @@
       android:minSdkVersion="16"
       android:targetSdkVersion="21"/>
 
-<!--   <application
+  <application
       android:allowBackup="true"
       android:name=".ShadowsocksApplication"
       android:hardwareAccelerated="true"
@@ -98,5 +98,5 @@
     </receiver>
 
   </application>
- -->
+
 </manifest>
