@@ -135,7 +135,7 @@ public class Tools {
     
 	public static String getBindingUsername(Context context){
 		String result = null;
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 //		result = pref.getString("bindingEmail", null);
 		JSONObject user = getCurrentUser(context);
 		if(user == null) return null;
@@ -151,7 +151,7 @@ public class Tools {
 	}
     
 //	public static void setBindingEmail(Context context, String email){
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 //		SharedPreferences.Editor editor = pref.edit();
 //		editor.putString("bindingEmail", email);
 //		editor.commit();
@@ -163,7 +163,7 @@ public class Tools {
 
 	public static JSONObject getCurrentUser(Context context){
 		JSONObject user = null;
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		String str = pref.getString("currentUser", null);
 		if(str != null){
 			try {
@@ -186,19 +186,19 @@ public class Tools {
 			e.printStackTrace();
 		}
 		
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString("currentUser", user.toString());
 		editor.commit();
 	}
 
 	public static String loadDeviceId(Context context){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		return pref.getString("DeviceId", null);
 	}
 
 	public static void saveDeviceId(Context context, String UUID){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString("DeviceId", UUID);
 		editor.commit();
@@ -503,24 +503,24 @@ public class Tools {
 	}
 
 	public static String getPrefString(Context context, String key, String defValue){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		return pref.getString(key, defValue);
 	}
 
 	public static void setPrefString(Context context, String key, String value){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString(key, value);
 		editor.commit();
 	}
 
 	public static boolean getPrefBoolean(Context context, String key, boolean defValue){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		return pref.getBoolean(key, defValue);
 	}
 
 	public static void setPrefBoolean(Context context, String key, boolean value){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putBoolean(key, value);
 		editor.commit();
@@ -833,7 +833,7 @@ public class Tools {
 
 	public static JSONObject getCurrentNas(Context context){
 		JSONObject nas = null;
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		String str = pref.getString("currentNas", null);
 		if(str != null){
 			try {
@@ -846,24 +846,24 @@ public class Tools {
 	}
 
 	public static void setCurrentNas(Context context, JSONObject nas){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString("currentNas", nas.toString());
 		editor.commit();
 	}
 
 //	public static String getCurrentRouteRegion(Context context){
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 //		return pref.getString("currentRegion", null);
 //	}
 //
 //	public static String getCurrentRouteCity(Context context){
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 //		return pref.getString("currentCity", null);
 //	}
 
 //	public static void setCurrentRoute(Context context, String region, String city){
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
 //		SharedPreferences.Editor editor = pref.edit();
 //		editor.putString("currentRegion", region);
 //		editor.putString("currentCity", city);

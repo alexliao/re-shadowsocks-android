@@ -105,8 +105,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.biganiseed.reindeer"
-    android:versionCode="1620"
-    android:versionName="1.62">
+    android:versionCode="1621"
+    android:versionName="1.621">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -173,7 +173,6 @@
 
         <service
             android:name=".ReindeerVpnService"
-            android:process=":vpn"
             android:label="@string/re_app_name"
             android:permission="android.permission.BIND_VPN_SERVICE"
             android:exported="false">
