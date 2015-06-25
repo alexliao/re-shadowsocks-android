@@ -104,6 +104,6 @@ object ReindeerUtils {
   }
 
   def getExecPath(app: android.app.Application): String = {
-    app.getDir("exec", 0).getAbsolutePath() + "/";
+    app.getDir("bin", 0).getAbsolutePath() + "/";
   }
 }
