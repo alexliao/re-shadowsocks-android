@@ -105,8 +105,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.biganiseed.reindeer"
-    android:versionCode="1570"
-    android:versionName="1.57">
+    android:versionCode="1620"
+    android:versionName="1.62">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>

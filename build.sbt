@@ -51,6 +51,8 @@ proguardOptions in Android ++= Seq("-keep class android.support.v4.app.** { *; }
           "-keep class com.github.shadowsocks.** { *; }",
           "-keep class * extends com.j256.ormlite.** { *; }",
           "-keep class com.joanzapata.** { *; }",
+          "-keep class com.umeng.** { *; }",
+          "-keep interface com.umeng.** { *; }",
           "-keepattributes *Annotation*",
           "-dontwarn org.xbill.**",
           "-dontwarn com.actionbarsherlock.**")
