@@ -1,29 +1,5 @@
 package com.biganiseed.reindeer.fragment;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.biganiseed.reindeer.Api;
-import com.biganiseed.reindeer.ConnectToggleButton;
-import com.biganiseed.reindeer.Const;
-import com.biganiseed.reindeer.MainActivity;
-import com.biganiseed.reindeer.OnStateChanged;
-import com.github.shadowsocks.R;
-import com.biganiseed.reindeer.ReindeerSwitcher;
-import com.biganiseed.reindeer.ShadowsocksConnector;
-import com.biganiseed.reindeer.TermsConfirm;
-import com.biganiseed.reindeer.Tools;
-import com.biganiseed.reindeer.VpnConnector;
-import com.biganiseed.reindeer.VpnConnector.State;
-import com.biganiseed.reindeer.util.AsyncImageLoader;
-
-import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +17,26 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.biganiseed.reindeer.Api;
+import com.biganiseed.reindeer.Const;
+import com.biganiseed.reindeer.OnStateChanged;
+import com.biganiseed.reindeer.R;
+import com.biganiseed.reindeer.ReindeerSwitcher;
+import com.biganiseed.reindeer.ShadowsocksConnector;
+import com.biganiseed.reindeer.Tools;
+import com.biganiseed.reindeer.VpnConnector;
+import com.biganiseed.reindeer.VpnConnector.State;
+import com.biganiseed.reindeer.util.AsyncImageLoader;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SwitcherFragment extends BodyFragment {
 	public static final int CONNECT = 100;
@@ -327,6 +323,7 @@ public class SwitcherFragment extends BodyFragment {
 					public void run() {
 						try{
 							refreshExpriationTime();
+							if(System.currentTimeMillis() - stateUpdatedAt > 1000) vpnConnector.broadcastStatus();
 						}catch(Exception e){
 							e.printStackTrace();
 						}
@@ -334,7 +331,6 @@ public class SwitcherFragment extends BodyFragment {
 				});
 			}
 		}, new Date(), 1000);
-        if(System.currentTimeMillis() - stateUpdatedAt > 1000) vpnConnector.boradcastStatus();
 	}
 
 	@Override

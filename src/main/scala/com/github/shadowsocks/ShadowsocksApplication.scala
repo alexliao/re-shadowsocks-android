@@ -38,6 +38,7 @@
  */
 
 package com.github.shadowsocks
+import com.biganiseed.reindeer.R
 
 import java.util
 import java.util.concurrent.TimeUnit

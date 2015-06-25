@@ -5,7 +5,6 @@ import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
-import com.github.shadowsocks.R;
 
 public class ProgressDialogFragment extends DialogFragment {
 

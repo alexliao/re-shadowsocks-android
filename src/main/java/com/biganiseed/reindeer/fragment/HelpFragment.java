@@ -1,12 +1,12 @@
 package com.biganiseed.reindeer.fragment;
 
 import com.biganiseed.reindeer.Const;
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.biganiseed.reindeer.ReindeerActivity;
 import com.biganiseed.reindeer.ReindeerVpnService;
 import com.biganiseed.reindeer.Tools;
-import com.github.shadowsocks.R.id;
-import com.github.shadowsocks.R.layout;
+import com.biganiseed.reindeer.R.id;
+import com.biganiseed.reindeer.R.layout;
 import com.github.shadowsocks.ReindeerUtils;
 import com.github.shadowsocks.utils.*;
 

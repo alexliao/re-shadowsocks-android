@@ -1,71 +1,75 @@
 package com.biganiseed.reindeer;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.util.Log;
+
+import com.github.shadowsocks.ShadowsocksVpnService;
+import com.github.shadowsocks.utils.Action;
+
+import org.json.JSONObject;
+
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.json.JSONObject;
-
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.os.SystemClock;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
-import com.github.shadowsocks.utils.*;
-import com.github.shadowsocks.ShadowsocksVpnService;
-
-import com.github.shadowsocks.R;
-import com.github.shadowsocks.BuildConfig;
-
 public class ReindeerVpnService extends ShadowsocksVpnService {
 	Timer simuseControlTimer;
 	Timer expirationTimer = new Timer();
-	
+	protected BroadcastReceiver closeBroadcastReceiver;
+
+	@Override
+	public void onCreate (){
+		super.onCreate();
+		registerCloseReceiver();
+	}
+
+	void registerCloseReceiver() {
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Action.CLOSE());
+		closeBroadcastReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(final Context context, final Intent intent) {
+				String action = intent.getAction();
+				if (Action.CLOSE().equals(action)) {
+					stopRunner();
+					stopTimer();
+				}
+
+			}
+		};
+		registerReceiver(closeBroadcastReceiver, filter);
+	}
+
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d(Const.APP_NAME, "ReindeerVpnService onStartCommand");
 		Tools.addLog(this, "ReindeerVpnService onStartCommand");
-//		startService(new Intent(this, Checker.class));
-		
-//		// set expiration
-//		long expiresAfter = intent.getLongExtra("expires_after", 0);
-////		long expiresAfter = 15;
-//		
-//		expirationTimer = new Timer();
-//		expirationTimer.schedule(new TimerTask(){
-//    		@Override
-//    		public void run(){
-//    			sendBroadcast(new Intent(Action.CLOSE()));
-//    			Log.d(Const.APP_NAME, "ReindeerVpnService expirationTimer do");
-//    		}
-//    	}, expiresAfter*1000);
-		
-//	   	AlarmManager alarms = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//    	PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, new Intent(Action.CLOSE()), 0);
-//    	long timeToRun = SystemClock.elapsedRealtime() + expiresAfter*1000;
-//    	alarms.set(AlarmManager.ELAPSED_REALTIME, timeToRun, alarmIntent);
 
 		checkExpiration();
-		
+		startSimuseControlTimer(intent);
+
+		return super.onStartCommand(intent, flags, startId);
+//		super.onStartCommand(intent, flags, startId);
+//		return Service.START_REDELIVER_INTENT;
+	}
+
+	void startSimuseControlTimer(Intent intent){
 		if(intent != null){
-			int simuseControlInterval = intent.getIntExtra("simuse_control_interval", 0); 
+			int simuseControlInterval = intent.getIntExtra("simuse_control_interval", 0);
 			if(simuseControlInterval > 0){
 				final String simuseControlServer = intent.getStringExtra("simuse_control_server");
+				if(simuseControlTimer != null) simuseControlTimer.cancel();
 				simuseControlTimer = new Timer();
 				simuseControlTimer.scheduleAtFixedRate(new TimerTask(){
 					@Override
 					public void run() {
-	//					Intent intent = new Intent(Const.BROADCAST_CACHE_APPS_PROGRESS);
-	//					intent.putExtra(Const.KEY_LOADING, true);
-	//					context.sendBroadcast(intent);
 						if(BuildConfig.DEBUG) Log.v(Const.APP_NAME, Const.APP_NAME + " ReindeerVpnService simuse control updating, server: " + simuseControlServer);
 						String err = Api.simuseControl(getApplicationContext(), simuseControlServer);
 						if(!err.isEmpty()){
@@ -73,33 +77,38 @@ public class ReindeerVpnService extends ShadowsocksVpnService {
 							notifyDisconnect(getApplicationContext(), err);
 						}
 					}
-		    	}, 10*1000, simuseControlInterval*1000);
+				}, 10*1000, simuseControlInterval*1000);
 			}
 		}
-		return super.onStartCommand(intent, flags, startId);
-//		super.onStartCommand(intent, flags, startId);
-//		return Service.START_REDELIVER_INTENT;
 	}
-	
+
 	// make sure expiration works
 	void checkExpiration(){
-		final JSONObject user = Tools.getCurrentUser(getApplicationContext());
+		if(expirationTimer != null) expirationTimer.cancel();
+		expirationTimer = new Timer();
 		expirationTimer.scheduleAtFixedRate(new TimerTask(){
 			public void run() {
+				JSONObject user = Tools.getCurrentUser(getApplicationContext());
+				boolean needClose = true;
 				if(user != null){
-					if(user.optBoolean("disconnect_when_expire", true) && !Tools.isVip(user)){
-						Date expireTime =  new Date(user.optLong("expiration")*1000);
-						if((new Date()).getTime() > expireTime.getTime()){
-							getApplicationContext().sendBroadcast(new Intent(Action.CLOSE()));
-			    			Log.d(Const.APP_NAME, "ReindeerVpnService expirationTimer do CLOSE");
+					if(Tools.isVip(user)) needClose = false;
+					else if (user.optBoolean("disconnect_when_expire", true)) {
+						Date expireTime = new Date(user.optLong("expiration") * 1000);
+						if ((new Date()).getTime() < expireTime.getTime()) {
+							needClose = false;
 						}
 					}
 				}
+				if(needClose){
+					getApplicationContext().sendBroadcast(new Intent(Action.CLOSE()));
+					Log.d(Const.APP_NAME, "ReindeerVpnService expirationTimer do CLOSE");
+				}
+
 			}
 		}, 5000, 10000);
-		
+
 	}
-	
+
     static private void notifyDisconnect(Context context, String msg) {
     	String text = msg;
 		String expandedText = msg;
@@ -113,12 +122,20 @@ public class ReindeerVpnService extends ShadowsocksVpnService {
 		notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
 		nm.notify(123456, notification);
 	}
-	
+
 
 	@Override
 	public void onDestroy() {
 		Log.d(Const.APP_NAME, "ReindeerVpnService onDestroy");
 		Tools.addLog(this, "ReindeerVpnService onDestroy");
+		stopTimer();
+		if (closeBroadcastReceiver != null) {
+			unregisterReceiver(closeBroadcastReceiver);
+		}
+		super.onDestroy();
+	}
+
+	void stopTimer(){
 		if(simuseControlTimer != null){
 			simuseControlTimer.cancel();
 			if(BuildConfig.DEBUG) Log.v(Const.APP_NAME, Const.APP_NAME + " ReindeerVpnService simuse control stopped.");
@@ -127,9 +144,8 @@ public class ReindeerVpnService extends ShadowsocksVpnService {
 			expirationTimer.cancel();
 			if(BuildConfig.DEBUG) Log.v(Const.APP_NAME, Const.APP_NAME + " ReindeerVpnService expiration control stopped.");
 		}
-		super.onDestroy();
 	}
-	
+
 	public static boolean isServiceStarted(Context context) {
 		return com.github.shadowsocks.utils.Utils.isServiceStarted("com.biganiseed.reindeer.ReindeerVpnService", context);
 	}

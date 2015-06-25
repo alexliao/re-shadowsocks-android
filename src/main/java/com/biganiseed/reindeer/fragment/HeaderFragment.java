@@ -1,13 +1,6 @@
 package com.biganiseed.reindeer.fragment;
 
-import com.biganiseed.reindeer.Const;
-import com.biganiseed.reindeer.MainActivity;
-import com.github.shadowsocks.R;
-import com.biganiseed.reindeer.Terms;
-import com.biganiseed.reindeer.Tools;
-
 import android.animation.ObjectAnimator;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +11,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.biganiseed.reindeer.Const;
+import com.biganiseed.reindeer.R;
+import com.biganiseed.reindeer.Tools;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
 
 public class HeaderFragment extends ReindeerFragment {
 	public static final String BROADCAST_UPDATE_TITLE = "com.biganiseed.reindeer.broadcast.update_title";
@@ -255,6 +253,15 @@ public class HeaderFragment extends ReindeerFragment {
 			navigate(new UpdatesFragment(), "updates");
 			return true;
 		} else if (item.getItemId() == R.id.menu_about) {
+			Tools.showToastShort(a(), getString(R.string.prompt_version_checking));
+			UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+				@Override
+				public void onUpdateReturned(int i, UpdateResponse updateResponse) {
+					if (i == UpdateStatus.No)
+						Tools.showToastShort(a(), getString(R.string.prompt_version_uptodate));
+				}
+			});
+			UmengUpdateAgent.forceUpdate(a());
 			navigate(new AboutFragment(), "about");
 			return true;
 		} else {

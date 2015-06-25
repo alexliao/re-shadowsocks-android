@@ -1,32 +1,89 @@
 package com.biganiseed.reindeer;
 
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.net.VpnService;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.os.SystemClock;
+import android.util.Log;
+
+import com.github.shadowsocks.ReindeerUtils;
+import com.github.shadowsocks.aidl.Config;
+import com.github.shadowsocks.aidl.IShadowsocksService;
+import com.github.shadowsocks.aidl.IShadowsocksServiceCallback;
+import com.github.shadowsocks.utils.Action;
+import com.github.shadowsocks.utils.Key;
+import com.github.shadowsocks.utils.Route;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.github.shadowsocks.ReindeerUtils;
-import com.github.shadowsocks.ShadowsocksVpnService;
-import com.github.shadowsocks.utils.*;
-
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.VpnService;
-import android.os.SystemClock;
-import android.util.Log;
-
 public class ShadowsocksConnector extends VpnConnector {
 	public static final String ACTION_VPN_CONNECTIVITY = "com.biganiseed.reindeer.vpn.connectivity";
-	public static final String CONNECTION_STATE = "com.biganiseed.reindeer.connection_state";
+	public static final String UPDATE_STATE = "com.biganiseed.reindeer.UPDATE_STATE";
+	public static final String STATE = "com.biganiseed.reindeer.STATE";
 	JSONObject profile;
-	
+
+	IShadowsocksService bgService = null;
+	IShadowsocksServiceCallback callback = new IShadowsocksServiceCallback.Stub() {
+		@Override
+		public void stateChanged(int i, String s) throws RemoteException {
+			sendBroadcast(i);
+		}
+	};
+	ServiceConnection connection = new ServiceConnection(){
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			bgService = IShadowsocksService.Stub.asInterface(service);
+			try{
+				bgService.registerCallback(callback);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			// TODO
+			// update the UI
+		}
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			//TODO
+			// update the UI
+			try{
+				if (bgService != null) bgService.unregisterCallback(callback);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			bgService = null;
+		}
+	};
+
+	void attachService() {
+		if (bgService == null) {
+			Intent intent = new Intent(activity, ReindeerVpnService.class);
+			intent.setAction(Action.SERVICE());
+			activity.bindService(intent, connection, Context.BIND_AUTO_CREATE);
+		}
+	}
+
+	void deattachService() {
+		if (bgService != null) {
+			try {
+				bgService.unregisterCallback(callback);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			bgService = null;
+			activity.unbindService(connection);
+		}
+	}
+
+
 	public ShadowsocksConnector(ReindeerActivity aContext, Runnable anOnExpiredRunable,
 			Runnable anOnOutOfUseRunnale) {
 		super(aContext, anOnExpiredRunable, anOnOutOfUseRunnale);
@@ -34,75 +91,60 @@ public class ShadowsocksConnector extends VpnConnector {
 
 	@Override
 	public void init() {
-//		ShadowsocksVpnService.setBase(Const.EXEC_PATH);
-		
+//		ShadowVpnService.setBase(Const.EXEC_PATH);
+		if(!Tools.getPrefBoolean(activity, "shadowsocks_assets_copied", false)){
+			activity.ayncRun(new Runnable(){
+				@Override public void run() {
+					ReindeerUtils.reset(activity);
+					Tools.setPrefBoolean(activity, "shadowsocks_assets_copied", true);
+				}
+			}, null);
+		}
+
+		attachService();
 	}
 
 	@Override
 	public void uninit() {
 		// TODO Auto-generated method stub
-
+		deattachService();
 	}
 
 	@Override
 	public void disconnect() {
 		sendBroadcastConnecting();
 		activity.sendBroadcast(new Intent(Action.CLOSE()));
+//		if (bgService != null) try {
+//			bgService.stop();
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
-	public void boradcastStatus() {
-		if(ReindeerVpnService.isServiceStarted(activity))
-			sendBroadcast(com.github.shadowsocks.utils.State.CONNECTED());
-		else
-			sendBroadcast(com.github.shadowsocks.utils.State.STOPPED());
-	}
-
-	@Override
-	public void onStart() {
-		if(!ReindeerVpnService.isServiceStarted(activity)){
-//			Utils.reset(getApplicationContext());
-			final String exec_path = ReindeerUtils.getExecPath(activity.getApplication());
-			new Thread() {
-				public void run(){
-					ReindeerUtils.crash_recovery(exec_path);
-				}
-			}.start();
-
-			if(!Tools.getPrefBoolean(activity, "shadowsocks_assets_copied", false)){
-				activity.ayncRun(new Runnable(){
-					@Override public void run() {
-				        ReindeerUtils.copyAssets(activity, exec_path, ReindeerUtils.getABI());
-				        ReindeerUtils.chmodAssets(exec_path);
-				        Tools.setPrefBoolean(activity, "shadowsocks_assets_copied", true);
-					}
-				}, null);		
-			}
+	public void broadcastStatus() {
+//		if(ReindeerVpnService.isServiceStarted(activity))
+		if(bgService == null) return;
+		try {
+			if(bgService.getState() == com.github.shadowsocks.utils.State.CONNECTED())
+                sendBroadcast(com.github.shadowsocks.utils.State.CONNECTED());
+            else
+                sendBroadcast(com.github.shadowsocks.utils.State.STOPPED());
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void onStop() {
-		// TODO Auto-generated method stub
+	public void onStart() {
+	}
 
+	@Override
+	public void onStop() {
 	}
 
 	@Override
 	public void onActivityResult(Intent data) {
-//		if (openvpnProfile == null) {
-//			Log.w(MainActivity.TAG, "profile is null");
-//			return;
-//		}
-//		if (mIVpnService == null){
-//			Toast.makeText(activity, "Havn't bound to vpn service",	Toast.LENGTH_LONG).show();
-//			return;
-//		}
-//		try {
-////			mIVpnService.connect(mConnectingProfile, mConnectingUsername, mConnectingPassword);
-//			mIVpnService.connect(openvpnProfile, null, null);
-//		} catch (RemoteException e) {
-//			Toast.makeText(activity, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//		}
 		doConnect();
 	}
 	
@@ -114,54 +156,77 @@ public class ShadowsocksConnector extends VpnConnector {
 		sendBroadcastConnecting();
 
 		Intent intent = new Intent(activity, ReindeerVpnService.class);
-		
-	    intent.putExtra(Key.isGlobalProxy(), true);
-	    intent.putExtra(Key.isGFWList(), server.optBoolean("smart_route", Tools.getPrefBoolean(activity, Key.isGFWList(), Const.DEFAULT_SMART_ROUTE)));
-	    intent.putExtra(Key.isBypassApps(), false);
-	    intent.putExtra(Key.isTrafficStat(), true);
-	    intent.putExtra(Key.proxied(), "");
-	    intent.putExtra(Key.localPort(), 1080);
-	    intent.putExtra("isVip", profile.optBoolean("isVip", false));
+//
+//	    intent.putExtra(Key.isGlobalProxy(), true);
+//	    intent.putExtra(Key.isGFWList(), server.optBoolean("smart_route", Tools.getPrefBoolean(activity, Key.isGFWList(), Const.DEFAULT_SMART_ROUTE)));
+//	    intent.putExtra(Key.isBypassApps(), false);
+//	    intent.putExtra(Key.isTrafficStat(), true);
+//	    intent.putExtra(Key.proxied(), "");
+//	    intent.putExtra(Key.localPort(), 1080);
+//	    intent.putExtra("isVip", profile.optBoolean("isVip", false));
+//
+//	    intent.putExtra(Key.proxy(), server.optString("ip"));
+//	    intent.putExtra(Key.sitekey(), profile.optString("password"));
+//	    intent.putExtra(Key.encMethod(), profile.optString("encrypt_method"));
+//	    intent.putExtra(Key.remotePort(), profile.optInt("port"));
+//	    intent.putExtra(Key.profileName(), server.optString("city_name"));
+//	    intent.putExtra("simuse_control_interval", profile.optInt("simuse_control_interval", 0));
+//	    intent.putExtra("simuse_control_server", profile.optString("simuse_control_server", Const.getRootIp(activity)));
+//	    intent.putExtra("expires_after", profile.optInt("expires_after", 0));
+//
+//
+//	    activity.startService(intent);
 
-//	    intent.putExtra(Key.proxy(), "192.241.236.202");
-//	    intent.putExtra(Key.sitekey(), "123456");
-//	    intent.putExtra(Key.encMethod(), "rc4");
-//	    intent.putExtra(Key.remotePort(), 10000);
-	    intent.putExtra(Key.proxy(), server.optString("ip"));
-	    intent.putExtra(Key.sitekey(), profile.optString("password"));
-	    intent.putExtra(Key.encMethod(), profile.optString("encrypt_method"));
-	    intent.putExtra(Key.remotePort(), profile.optInt("port"));
-	    intent.putExtra(Key.profileName(), server.optString("city_name"));
-	    intent.putExtra("simuse_control_interval", profile.optInt("simuse_control_interval", 0));
-	    intent.putExtra("simuse_control_server", profile.optString("simuse_control_server", Const.getRootIp(activity)));
-	    intent.putExtra("expires_after", profile.optInt("expires_after", 0));
 
-	    
-	    activity.startService(intent);
-	    
+		Config config = new Config(
+				true,
+				false, // obsolete parameter, no effect
+				false,
+				true,
+				false,
+				server.optString("city_name"),
+				server.optString("ip"),
+				profile.optString("password"),
+				profile.optString("encrypt_method"),
+				"",
+				server.optBoolean("smart_route", Tools.getPrefBoolean(activity, Key.isGFWList(), Const.DEFAULT_SMART_ROUTE)) ? Route.BYPASS_CHN() : Route.ALL(),
+				profile.optInt("port"),
+				1080
+		);
+
+		try {
+			bgService.start(config);
+			// start expiration and simuse control
+		    intent.putExtra("simuse_control_interval", profile.optInt("simuse_control_interval", 0));
+		    intent.putExtra("simuse_control_server", profile.optString("simuse_control_server", Const.getRootIp(activity)));
+		    activity.startService(intent);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
 		Tools.setCurrentNas(activity, server);
 	}
 
 	@Override
 	public void registerReceiver(final OnStateChanged callback) {
 		IntentFilter filter = new IntentFilter();
-		filter.addAction(Action.UPDATE_STATE());
+		filter.addAction(UPDATE_STATE);
         stateBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(final Context context, final Intent intent) {
                 String action = intent.getAction();
 
-                if (Action.UPDATE_STATE().equals(action)) {
+				if (UPDATE_STATE.equals(action)) {
 //                    Log.d(Const.APP_NAME, "Reindeer receiver UPDATE_STATE intent:" + intent); //$NON-NLS-1$
-            		final int s = intent.getIntExtra(Extra.STATE(), com.github.shadowsocks.utils.State.INIT());
+            		final int s = intent.getIntExtra(STATE, com.github.shadowsocks.utils.State.INIT());
         	        activity.runOnUiThread(new Runnable() {
         	            @Override
         	            public void run() {
         	            	callback.run(translateState(s));
         	            }
         	        });
-                } else {
-                    Log.d(Const.APP_NAME, "Reindeer receiver ignores intent:" + intent); //$NON-NLS-1$
+				} else {
+					Log.d(Const.APP_NAME, "Reindeer receiver ignores intent:" + intent); //$NON-NLS-1$
                 }
             }
         };
@@ -242,11 +307,11 @@ public class ShadowsocksConnector extends VpnConnector {
     }
 
     private Intent getBroadcast(int state){
-        Intent intent = new Intent(Action.UPDATE_STATE());
-		intent.putExtra(Extra.STATE(), state);
+        Intent intent = new Intent(UPDATE_STATE);
+		intent.putExtra(STATE, state);
 		return intent;
     }
-    
+
 	private void sendBroadcast(int state) {
         activity.sendBroadcast(getBroadcast(state));
     }

@@ -6,7 +6,7 @@ android.Plugin.androidBuild
 
 platformTarget in Android := "android-21"
 
-name := "shadowsocks"
+name := "reindeer"
 
 compileOrder in Compile := CompileOrder.Mixed
 

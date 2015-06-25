@@ -17,8 +17,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 
-import com.github.shadowsocks.R;
-
 public class ReindeerSwitcher extends RelativeLayout {
 	View viewOff, viewOn;
 	View imgCircleOff, imgCircleOn, imgBodyOff, imgBodyOn;

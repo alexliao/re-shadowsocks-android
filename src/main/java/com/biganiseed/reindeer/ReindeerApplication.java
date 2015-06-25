@@ -1,7 +1,13 @@
 package com.biganiseed.reindeer;
 
-import android.app.Application;
+import com.github.shadowsocks.ReindeerUtils;
+import com.github.shadowsocks.ShadowsocksApplication;
 
-public class ReindeerApplication extends Application {
+public class ReindeerApplication extends ShadowsocksApplication {
+
+    @Override
+    public void onCreate (){
+        com.github.shadowsocks.utils.Path.setBASE(ReindeerUtils.getExecPath(this));
+    }
 
 }

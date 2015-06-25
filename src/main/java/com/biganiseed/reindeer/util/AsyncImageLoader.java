@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.biganiseed.reindeer.Const;
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.biganiseed.reindeer.Tools;
 
 import android.content.ContentResolver;

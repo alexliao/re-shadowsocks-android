@@ -1,6 +1,6 @@
 package com.biganiseed.reindeer;
 
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

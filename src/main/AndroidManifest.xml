@@ -1,102 +1,211 @@
+<!--<manifest xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--package="com.biganiseed.reindeer"-->
+    <!--android:versionCode="1600"-->
+    <!--android:versionName="1.6">-->
+
+    <!--<uses-permission android:name="android.permission.INTERNET"/>-->
+    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
+    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
+    <!--<uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>-->
+
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.touchscreen"-->
+        <!--android:required="false"/>-->
+
+    <!--<uses-sdk-->
+        <!--android:minSdkVersion="16"-->
+        <!--android:targetSdkVersion="21"/>-->
+
+    <!--<application-->
+        <!--android:allowBackup="true"-->
+        <!--android:name="com.github.shadowsocks.ShadowsocksApplication"-->
+        <!--android:hardwareAccelerated="true"-->
+        <!--android:icon="@drawable/ic_launcher"-->
+        <!--android:backupAgent="com.github.shadowsocks.ShadowsocksBackupAgent"-->
+        <!--android:label="@string/app_name">-->
+
+        <!--<meta-data android:name="com.google.android.gms.version"-->
+            <!--android:value="@integer/google_play_services_version"/>-->
+        <!--<meta-data android:name="com.google.android.backup.api_key"-->
+            <!--android:value="AEdPqrEAAAAI_zVxZthz2HDuz9toTvkYvL0L5GA-OjeUIfBeXg"/>-->
+
+        <!--<activity-->
+            <!--android:name="com.google.android.gms.ads.AdActivity"-->
+            <!--android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>-->
+
+        <!--<activity-->
+            <!--android:name="com.github.shadowsocks.Shadowsocks"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:theme="@style/Theme.Shadowsocks"-->
+            <!--android:launchMode="singleTask">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--<activity-->
+            <!--android:name="com.github.shadowsocks.ParserActivity"-->
+            <!--android:theme="@style/PopupTheme"-->
+            <!--android:launchMode="singleTask">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.VIEW"/>-->
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+                <!--<category android:name="android.intent.category.BROWSABLE"/>-->
+                <!--<data android:scheme="ss"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--<activity-->
+            <!--android:name="com.github.shadowsocks.ShadowsocksRunnerActivity"-->
+            <!--android:theme="@android:style/Theme.NoDisplay"-->
+            <!--android:launchMode="singleTask">-->
+        <!--</activity>-->
+
+        <!--<activity-->
+            <!--android:name="com.github.shadowsocks.AppManager"-->
+            <!--android:theme="@style/Theme.AppManager"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:parentActivityName="com.github.shadowsocks.Shadowsocks">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.github.shadowsocks.AppManager"/>-->
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--<service-->
+            <!--android:name="com.github.shadowsocks.ShadowsocksNatService"-->
+            <!--android:process=":nat"-->
+            <!--android:exported="false">-->
+        <!--</service>-->
+
+        <!--<service-->
+            <!--android:name="com.github.shadowsocks.ShadowsocksVpnService"-->
+            <!--android:process=":vpn"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:permission="android.permission.BIND_VPN_SERVICE"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.net.VpnService"/>-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+
+        <!--<receiver android:name="com.github.shadowsocks.ShadowsocksReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED"/>-->
+                <!--<action android:name="com.github.shadowsocks.ACTION_UPDATE_STATE"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
+    <!--</application>-->
+
+<!--</manifest>-->
+
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.shadowsocks"
-    android:versionCode="107"
-    android:versionName="2.6.9">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.biganiseed.reindeer"
+    android:versionCode="1570"
+    android:versionName="1.57">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-  <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	<uses-permission android:name="com.android.vending.BILLING" />
+    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
+    <!-- <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/> -->
 
-  <uses-feature
-      android:name="android.hardware.touchscreen"
-      android:required="false"/>
+    <uses-feature
+            android:name="android.hardware.touchscreen"
+            android:required="false"/>
 
-  <uses-sdk
-      android:minSdkVersion="16"
-      android:targetSdkVersion="21"/>
+    <uses-sdk
+            android:minSdkVersion="16"
+            android:targetSdkVersion="21"/>
 
-  <application
-      android:allowBackup="true"
-      android:name=".ShadowsocksApplication"
-      android:hardwareAccelerated="true"
-      android:icon="@drawable/ic_launcher"
-      android:backupAgent=".ShadowsocksBackupAgent"
-      android:label="@string/app_name">
+    <application
+            android:name="ReindeerApplication"
+            android:hardwareAccelerated="true"
+            android:icon="@drawable/re_ic_launcher"
+            android:label="@string/re_app_name"
+	        android:theme="@style/defaultActivity"
+        >
 
-    <meta-data android:name="com.google.android.gms.version"
-                      android:value="@integer/google_play_services_version"/>
-    <meta-data android:name="com.google.android.backup.api_key"
-        android:value="AEdPqrEAAAAI_zVxZthz2HDuz9toTvkYvL0L5GA-OjeUIfBeXg"/>
+        <!--<activity-->
+                <!--android:name="com.google.ads.AdActivity"-->
+                <!--android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>-->
 
-    <activity
-        android:name="com.google.android.gms.ads.AdActivity"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+<!--         <activity
+                android:name="com.github.shadowsocks.Shadowsocks"
+                android:label="@string/app_name"
+                android:theme="@style/Theme.Shadowsocks"
+                android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+  -->
+        <activity
+                android:name="MainActivity"
+                android:launchMode="singleTask"
+ 				android:screenOrientation="portrait"
+                 >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
-    <activity
-        android:name=".Shadowsocks"
-        android:label="@string/app_name"
-        android:theme="@style/Theme.Shadowsocks"
-        android:launchMode="singleTask">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
+        <activity android:name=".TermsConfirm" android:label="@string/tos" android:theme="@style/defaultDialog" android:screenOrientation="portrait" />
+        <activity android:name=".EditPassword" android:label="@string/edit_password" android:theme="@style/defaultDialog" android:screenOrientation="portrait" />
+        <activity android:name=".Signin" android:label="@string/signin" android:theme="@style/defaultDialog" android:screenOrientation="portrait" />
+        <activity android:name=".Signup" android:label="@string/signup" android:theme="@style/defaultDialog" android:screenOrientation="portrait" />
 
-    <activity
-        android:name=".ParserActivity"
-        android:theme="@style/PopupTheme"
-        android:launchMode="singleTask">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="ss"/>
-      </intent-filter>
-    </activity>
+        <activity
+            android:name="com.github.shadowsocks.ShadowsocksRunnerActivity"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:launchMode="singleTask">
+        </activity>
 
-    <activity
-        android:name=".ShadowsocksRunnerActivity"
-        android:theme="@android:style/Theme.NoDisplay"
-        android:launchMode="singleTask">
-    </activity>
+        <service
+            android:name=".ReindeerVpnService"
+            android:process=":vpn"
+            android:label="@string/re_app_name"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
 
-    <activity
-        android:name=".AppManager"
-        android:theme="@style/Theme.AppManager"
-        android:label="@string/app_name"
-        android:parentActivityName=".Shadowsocks">
-      <intent-filter>
-        <action android:name="com.github.shadowsocks.AppManager"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-    </activity>
 
-    <service
-        android:name=".ShadowsocksNatService"
-        android:process=":nat"
-        android:exported="false">
-    </service>
+      	<service android:name=".DownloaderEx" android:enabled="true" ></service>
+	    <service
+	        android:name=".Checker"
+	        android:enabled="true"
+	        android:process=".checker"
+	        >
+	    </service>
 
-    <service
-        android:name=".ShadowsocksVpnService"
-        android:process=":vpn"
-        android:label="@string/app_name"
-        android:permission="android.permission.BIND_VPN_SERVICE"
-        android:exported="false">
-      <intent-filter>
-        <action android:name="android.net.VpnService"/>
-      </intent-filter>
-    </service>
+		<meta-data android:value="53d1bdba56240b994801fa48" android:name="UMENG_APPKEY"></meta-data>
+		<meta-data android:value="main" android:name="UMENG_CHANNEL"/>
+        <!-- 自动更新相关 Start-->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <!-- 自动更新相关 End -->
 
-    <receiver android:name=".ShadowsocksReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED"/>
-        <action android:name="com.github.shadowsocks.ACTION_UPDATE_STATE"/>
-      </intent-filter>
-    </receiver>
 
-  </application>
+	</application>
 
 </manifest>
+

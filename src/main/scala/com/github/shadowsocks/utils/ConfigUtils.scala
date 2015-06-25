@@ -38,9 +38,10 @@
  */
 
 package com.github.shadowsocks.utils
+import com.biganiseed.reindeer.R
 
 import android.content.{SharedPreferences, Context}
-import com.github.shadowsocks.{R, ShadowsocksApplication}
+import com.github.shadowsocks.ShadowsocksApplication
 import com.google.android.gms.tagmanager.Container
 import com.github.kevinsawicki.http.HttpRequest
 import com.github.shadowsocks.aidl.Config

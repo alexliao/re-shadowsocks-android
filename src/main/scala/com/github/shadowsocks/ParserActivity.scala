@@ -38,6 +38,7 @@
  */
 
 package com.github.shadowsocks
+import com.biganiseed.reindeer.R
 
 import android.os.{Message, Handler, Bundle}
 import android.app.{ProgressDialog, AlertDialog, Activity}

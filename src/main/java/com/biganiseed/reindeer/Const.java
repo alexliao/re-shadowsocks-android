@@ -1,13 +1,9 @@
 package com.biganiseed.reindeer;
 
-import java.util.Locale;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 
 public class Const {
 	public static boolean IS_RESELLER = false ; // if this build is for reseller
@@ -20,15 +16,15 @@ public class Const {
 	public static final String ORDER_PREFIX = "RE";
 //	public static String DNS_URL = "http://www.douban.com/note/317378727/"; // REDNS
 //	public static String DNS_URL_DEFAULT = "http://about.me/alex_liao/collections/redns"; // for oversea users
-	public static String DNS_URL_DEFAULT = "http://reroot.ba3.info/dns"; 
-	public static String DNS_URL_VIP = "http://rerootvip.ba3.info/dnsvip"; 
+	public static String DNS_URL_DEFAULT = "http://reindeerdns.ba3.info/dns";
+	public static String DNS_URL_VIP = "http://reindeerdns.ba3.info/dnsvip";
 	
 	public static final String PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.biganiseed.reindeer";
 //	public static final String SHARE_URL = "http://www.reindeervpn.com/?ref=ra";
 	public static String TMP_FOLDER = "";
 	public static  String BROADCAST_DOWNLOAD_PROGRESS = "com.biganseed.reindeer.DOWNLOAD_PROGRESS";
 	public static final int MULITI_DOWNLOADING = 4;
-	public static final boolean DEFAULT_SMART_ROUTE = false;
+	public static final boolean DEFAULT_SMART_ROUTE = true;
 //	public static final String EXEC_PATH = "/data/data/com.biganiseed.reindeer/";
 	
 	public static String getRootHttp(Context context){
@@ -49,8 +45,9 @@ public class Const {
 //		String ret = "198.23.109.86";
 //		String ret = "117.121.26.210";
 //		String ret = "119.254.110.183";
-		String ret = "45.56.85.252"; 
-		if(Tools.isVip(Tools.getCurrentUser(context))) ret = "66.175.221.153" ;
+//		String ret = "45.56.85.252";
+		String ret = "66.175.221.153";
+//		if(Tools.isVip(Tools.getCurrentUser(context))) ret = "66.175.221.153" ;
 //		try{
 //			TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);  
 //			String country = tm.getNetworkCountryIso();

@@ -37,9 +37,11 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//import com.actionbarsherlock.view.Menu;
+//import com.actionbarsherlock.view.MenuItem;
 import com.biganiseed.reindeer.Api;
 import com.biganiseed.reindeer.Const;
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.biganiseed.reindeer.Tools;
 import com.biganiseed.reindeer.VpnConnector;
 import com.biganiseed.reindeer.googlebilling.GoogleBilling;
@@ -59,11 +61,15 @@ public class OrderFragment extends BodyFragment {
 	private boolean paid = false;
 	private int latestDealerVersion = 0;
 	
+//	private TextView txtPlan;
 	RadioButton radioPlan;
 	TextView txtPrice;
+//	PaypalButton paypalButton;
 	View alipayButton;
 	View friendpayButton;
 	View pcpayButton;
+//	Alipay alipay;
+//	private View alipayButton;
 	AlertDialog friendPayDialog;
 	AlertDialog pcpayDialog;
 	
@@ -72,7 +78,39 @@ public class OrderFragment extends BodyFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+//		try {
+////			uuid = getIntent().getExtras().getString("uuid");
+////			orderId = getIntent().getExtras().getString("order_id");
+////			String s = getIntent().getExtras().getString("plan");
+////			if(s != null) plan = new JSONObject(s);
+////			if(plan == null) getOrderFromUrl(getIntent());
+//			orderString = this.getArguments().getString("order_string");
+//			getOrder();
+////			if(plan != null) bindView();
+//		
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			Toast.makeText(a(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+////			finish();
+//		}
+		
 		HeaderFragment.setTitle(a(), String.format(getString(R.string.pay_for_x), humanName));
+
+//		mHelper = new IabHelper(a(), GoogleBilling.APPLICATION_PUBLIC_KEY);
+//		mHelper.enableDebugLogging(true);
+//        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+//            public void onIabSetupFinished(IabResult result) {
+//                if (!result.isSuccess()) {
+//                    // Oh noes, there was a problem.
+//                    Tools.alert(a(), null, "Problem setting up in-app billing: " + result).show();
+//                    return;
+//                }
+//                // Have we been disposed of in the meantime? If so, quit.
+//                if (mHelper == null) return;
+//                // IAB is fully set up. Now, let's get an inventory of stuff we own.
+//                mHelper.queryInventoryAsync(mGotInventoryListener);
+//            }
+//        });
 	}
 
     
@@ -80,6 +118,7 @@ public class OrderFragment extends BodyFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.re_order_fragment, container, false);
+//        bindView(v);
         return v;
     }
 	
@@ -127,12 +166,33 @@ public class OrderFragment extends BodyFragment {
 				@Override
 				public void run() {
 					finishFragment();
+//					navigate(new AccountFragment(), "account");
 				}
 			}, 1000);
 		}else{
 			v.findViewById(R.id.txtPaid).setVisibility(View.GONE);
 			v.findViewById(R.id.viewPayButtons).setVisibility(View.VISIBLE);
 			
+//			paypalButton = (PaypalButton) findViewById(R.id.paypalButton);
+//			if(plan.optDouble("price_usd") > 0){
+//				paypalButton.setVisibility(View.VISIBLE);
+//				paypalButton.setPayment(orderId, Tools.genOrderString(username, orderId, plan, "paypal"), plan.optDouble("price_usd"), plan.optString("description_en") + (humanName == null ? "" : " for " + humanName ) );
+//				paypalButton.init();
+//			}else paypalButton.setVisibility(View.GONE);
+//	//		txtPlan = (TextView) findViewById(R.id.txtPlan);
+//	//		txtPlan.setText(getIntent().getExtras().getString("desc"));
+//	
+//			alipayButton = findViewById(R.id.alipayButton);
+//			if(plan.optDouble("price_rmb") > 0){
+//				alipayButton.setVisibility(View.VISIBLE);
+//				alipay = new Alipay(this);
+//				alipay.setPayment(orderId, Tools.genOrderString(username, orderId, plan, "alipay"), plan.optDouble("price_rmb"),  (humanName == null ? "" : "代" + humanName ) + "充值Ladder " + plan.optString("description_zh"));
+//				alipay.init(alipayButton, new Handler() {
+//					public void handleMessage(Message msg) {
+//							if(Alipay.RESULT_SUCCESS == msg.what) onSuccess("alipay");
+//					}
+//				});
+//			}else alipayButton.setVisibility(View.GONE);
 			
 	        Button btnPayViaGoogle = (Button) v.findViewById(R.id.btnPayViaGoogle);
 	        btnPayViaGoogle.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +240,13 @@ public class OrderFragment extends BodyFragment {
 					}
 				}
 			});
+//			if(dealerVersion() < latestDealerVersion){
+//	    		Drawable d = this.getResources().getDrawable(R.drawable.btn_check_buttonless_on);
+//	        	d.setBounds(0, 0, d.getMinimumWidth(), d.getMinimumHeight());
+//	    		Drawable p = this.getResources().getDrawable(R.drawable.placeholder); // for making button text center aligned
+//	        	p.setBounds(0, 0, d.getMinimumWidth(), d.getMinimumHeight());
+//				btnPayOnPhone.setCompoundDrawables(d, null, p, null);
+//			}
 			Tools.setTextEnabled(a(), btnPayOnPhone, dealerVersion() >= latestDealerVersion);
 
 	        pcpayDialog = preparePcpayDialog();
@@ -202,6 +269,7 @@ public class OrderFragment extends BodyFragment {
 		}
 		
 		if(humanName != null){
+//			getSupportActionBar().setTitle(String.format(getString(R.string.pay_for_x), humanName));
 			HeaderFragment.setTitle(a(), String.format(getString(R.string.pay_for_x), humanName));
 		}
 	}
@@ -230,6 +298,9 @@ public class OrderFragment extends BodyFragment {
     }
     
     private void getOrder() throws ParseException, JSONException{
+//	    	List<String> params = data.getPathSegments();
+	    	//String controller = params.get(0); // "orders"
+    		// get parameters
     	
 	    	String sign = orderString.split("--")[0];
 	    	final String orderInfo = orderString.split("--")[1];
@@ -257,6 +328,16 @@ public class OrderFragment extends BodyFragment {
 						handler.post(new Runnable(){
 							@Override
 							public void run() {
+//								removeDialog(0);
+//								Log.d(Const.APP_NAME, "OrderActivity removeDialog(0)");
+//								if(order.optBoolean("paid")){
+//									Tools.alert(OrderActivity.this, null, getString(R.string.pay_for_redundant))
+//									.setPositiveButton(android.R.string.ok,  new DialogInterface.OnClickListener(){
+//									    public void onClick(DialogInterface dialog, int which){
+//											finish();
+//									    }       
+//									}).show();
+//								}else{
 								if(ga() != null) ga().hideLoading();
 								try {
 									bindView(getView());
@@ -274,12 +355,47 @@ public class OrderFragment extends BodyFragment {
 							}
 						});
 					} finally{
+//						handler.post(new Runnable(){
+//							@Override
+//							public void run() {
+//								hideProgressDialog();
+//							}
+//						});
 					}
 				}
 			}.start();
 			
     }
 	
+//	void proceedWithOrderInfo(String orderInfo){
+//		try {
+//			final Date now = new Date();
+//	    	uuid = orderInfo.split("-")[0];
+//	    	final String planName = orderInfo.split("-")[2];
+//	    	String latest_plan = Tools.getPrefString(getApplicationContext(), "latest_plan_"+planName, null);
+//	    	String latest_plan_time = Tools.getPrefString(getApplicationContext(), "latest_plan_time_"+planName, null);
+//	    	if(latest_plan != null && (now.getTime() - Long.parseLong(latest_plan_time)) < 10*60*1000){
+//					plan = new JSONObject(latest_plan);
+//					bindView();
+//	    	}else{
+//				ayncRun(new Runnable(){
+//					@Override public void run() {
+//						try {
+//							plan = Api.getPlan(getApplicationContext(), planName);
+//							Tools.setPrefString(getApplicationContext(), "latest_plan_"+planName, plan.toString());
+//							Tools.setPrefString(getApplicationContext(), "latest_plan_time_"+planName, ""+now.getTime());
+//						} catch (Exception e) {	throw new RuntimeException(e);	}
+//					}
+//				}, new Runnable(){@Override	public void run() {	
+//					try {
+//						bindView();
+//					} catch (Exception e) {	throw new RuntimeException(e); }	
+//				}}, false);
+//	    	}
+//		} catch (Exception e) {
+//			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//		}
+//	}
 	
 	AlertDialog prepareFriendPayDialog(){
         LayoutInflater factory = LayoutInflater.from(a());
@@ -381,6 +497,35 @@ public class OrderFragment extends BodyFragment {
 		}
 	}
 
+	
+//	String genDesc(JSONObject plan, String lang){
+//		String result;
+//		String or;
+//		
+//		if(lang.equalsIgnoreCase("zh")){
+//			result = plan.optString("description_zh") + "\n";
+//			or = "或";
+//		}else{
+//			result = plan.optString("description_en") + "\n";
+//			or = "or";
+//		}
+//		
+//		// add "or" if need
+//		double priceUSD = plan.optDouble("price_usd", 0.0);
+//		double priceRMB = plan.optDouble("price_rmb", 0.0);
+//		if (priceRMB > 0) result += "￥" + Tools.formatPrice(priceRMB) + " (支付宝)";
+//		if (priceRMB > 0 && priceUSD > 0) result += " " + or + " ";
+//		if (priceUSD > 0) result += "$" + Tools.formatPrice(priceUSD) + " (PayPal)";
+//
+//		return result;
+//	}
+	
+//	private void onSuccess(final String gateway, final boolean silence){
+//		try {
+//			String orderString = Tools.genOrderString(username, orderId, plan, gateway);
+//			onSuccessWithOrderString(orderString, silence);
+//		} catch (Exception e) {	throw new RuntimeException(e);	}
+//	}
 
 	private void onSuccessWithOrderString(final String orderString, final String extOrderId, final String token, final Runnable onSuccess){
 		ga().showProgressDialog();

@@ -42,7 +42,7 @@ import android.widget.Toast;
 //import com.actionbarsherlock.view.MenuItem;
 import com.biganiseed.reindeer.Api;
 import com.biganiseed.reindeer.Const;
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.biganiseed.reindeer.Signin;
 import com.biganiseed.reindeer.Signup;
 import com.biganiseed.reindeer.Tools;

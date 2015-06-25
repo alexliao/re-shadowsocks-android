@@ -8,7 +8,7 @@ import com.biganiseed.reindeer.Api;
 import com.biganiseed.reindeer.Binding;
 import com.biganiseed.reindeer.Const;
 import com.biganiseed.reindeer.EditPassword;
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.biganiseed.reindeer.Signin;
 import com.biganiseed.reindeer.Signup;
 import com.biganiseed.reindeer.Tools;

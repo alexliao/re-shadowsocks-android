@@ -1,53 +1,22 @@
 package com.biganiseed.reindeer;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.json.JSONObject;
-
-import com.biganiseed.reindeer.VpnConnector.State;
-import com.biganiseed.reindeer.fragment.OrderFragment;
-import com.biganiseed.reindeer.fragment.SwitcherFragment;
-import com.biganiseed.reindeer.googlebilling.GoogleBilling;
-import com.github.shadowsocks.ReindeerUtils;
-import com.github.shadowsocks.utils.*;
-import com.umeng.analytics.MobclickAgent;
-
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.ResolveInfo;
-import android.graphics.drawable.Drawable;
-import android.telephony.TelephonyManager;
-import android.text.format.Time;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewConfiguration;
+import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.fragment.OrderFragment;
+import com.biganiseed.reindeer.fragment.SwitcherFragment;
+import com.biganiseed.reindeer.googlebilling.GoogleBilling;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 public class MainActivity extends ReindeerActivity {
 	public static final int TERMS = 101;
-    protected static final String TAG = "Ladder";
+    protected static final String TAG = "Reindeer";
 //    private VpnConnector vpnConnector;
 //    private TextView txtTitle;
     ViewGroup viewBody;
@@ -123,7 +92,13 @@ public class MainActivity extends ReindeerActivity {
 		fragmentTransaction.add(R.id.viewBody, switcherFragment, "switcher");
 		fragmentTransaction.addToBackStack("switcher");
 		fragmentTransaction.commit();
-		
+
+
+		UmengUpdateAgent.update(this);
+
+//		PushAgent pushAgent = PushAgent.getInstance(this);
+//		pushAgent.enable();
+
 	}
 	
 
@@ -207,9 +182,9 @@ public class MainActivity extends ReindeerActivity {
 
 	
 
-	  boolean isShadowsocksServiceStarted(){
-		  return ReindeerVpnService.isServiceStarted(this);
-	  }
+//	  boolean isShadowsocksServiceStarted(){
+//		  return ReindeerVpnService.isServiceStarted(this);
+//	  }
 	
 	  @Override
 	  public void onBackPressed() {

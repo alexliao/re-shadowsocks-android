@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 
 public class TermsConfirm extends Activity {
 	

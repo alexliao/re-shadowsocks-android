@@ -33,7 +33,7 @@ import org.json.JSONObject;
 
 import com.biganiseed.reindeer.ReindeerBaseAdapter;
 import com.biganiseed.reindeer.Const;
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.biganiseed.reindeer.util.JSONUtils;
 
 import android.app.AlertDialog;

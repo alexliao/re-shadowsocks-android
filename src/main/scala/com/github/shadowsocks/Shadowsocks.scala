@@ -37,6 +37,7 @@
  *
  */
 package com.github.shadowsocks
+import com.biganiseed.reindeer.R
 
 import java.util
 import java.io.{OutputStream, InputStream, ByteArrayInputStream, ByteArrayOutputStream, IOException, FileOutputStream}

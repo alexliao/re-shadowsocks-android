@@ -38,6 +38,7 @@
  */
 
 package com.github.shadowsocks.database
+import com.biganiseed.reindeer.R
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -46,7 +47,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import android.graphics.drawable.Drawable
-import com.github.shadowsocks.{R}
 import android.view.View.{OnLongClickListener, OnClickListener}
 
 abstract class Item {

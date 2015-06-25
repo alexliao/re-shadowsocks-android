@@ -107,6 +107,8 @@
     <string name="plan3">一季 $10</string>
     <string name="plan4">一年 $40</string>
     <string name="proceed">继续</string>
+    <string name="prompt_version_checking">正在检查新版本...</string>
+    <string name="prompt_version_uptodate">已经是最新版本</string>
     <string name="purchase">购买</string>
     <string name="route_not_available">这条线路只对VIP用户开放，您想要购买VIP吗？</string>
     <string name="route_public_info_x" formatted="false">在线用户: %d, 平均速度: %.2fMbps</string>
@@ -131,6 +133,7 @@
     <string name="test_prompt">您还没有测试和比较过不同线路的速度，现在测速吗？</string>
     <string name="test_later">以后再说</string>
     <string name="test_now">测速</string>
+    <string name="title_about">关于</string>
     <string name="tos"><u>服务条款</u></string>
     <string name="transfer_progress" formatted="false">%dKB/秒, 剩余%s</string>
     <string name="transfer_speed" formatted="false">%.2fMbps</string>
@@ -144,7 +147,7 @@
 	<string name="version_name" formatted="false">版本%s</string>
 	<string name="version_size" formatted="false">版本%s, 大小%.2fMB</string>
 	<string name="vip_expire_at_x">VIP: %s</string>
-	<string name="website">官网: http://vpnreindeer.com</string>
+	<string name="website">官网: http://vpnxunlu.com</string>
 	<string name="x_seconds">%d秒钟</string>
 	<string name="x_seconds_ago">%d秒钟前</string>
     <string name="x_seconds_later">%d秒钟后</string>

@@ -20,8 +20,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.shadowsocks.R;
-
 public class NasAdapter extends ReindeerBaseAdapter {
 
 	public NasAdapter(ReindeerActivity context, JSONArray stream,	HashMap<String, Integer> loadingImages) {

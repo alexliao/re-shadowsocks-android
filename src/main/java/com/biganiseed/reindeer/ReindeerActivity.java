@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.umeng.analytics.MobclickAgent;
 
 public class ReindeerActivity extends Activity {

@@ -53,7 +53,7 @@ import android.os.Build
 import android.provider.Settings
 import scala.Some
 import java.security.MessageDigest
-import com.github.shadowsocks.{BuildConfig}
+import com.biganiseed.reindeer.{BuildConfig}
 
 
 object Utils {

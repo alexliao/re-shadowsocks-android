@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.biganiseed.reindeer.Const;
 import com.biganiseed.reindeer.Tools;
 import com.biganiseed.reindeer.googlebilling.util.IabHelper;

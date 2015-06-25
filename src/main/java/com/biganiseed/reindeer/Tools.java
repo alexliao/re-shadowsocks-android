@@ -1,5 +1,48 @@
 package com.biganiseed.reindeer;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Notification;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.biganiseed.reindeer.util.Base64;
+import com.biganiseed.reindeer.util.DownloadImage;
+import com.biganiseed.reindeer.util.GeneralHash;
+import com.biganiseed.reindeer.util.Rotate3dAnimation;
+import com.github.shadowsocks.utils.Key;
+import com.github.shadowsocks.utils.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
@@ -14,54 +57,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.biganiseed.reindeer.util.Base64;
-import com.biganiseed.reindeer.util.DownloadImage;
-import com.biganiseed.reindeer.util.GeneralHash;
-import com.biganiseed.reindeer.util.Rotate3dAnimation;
-import com.github.shadowsocks.utils.*;
 //import com.nineoldandroids.view.animation.AnimatorProxy;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Notification;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Build;
-import android.os.Handler;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.Interpolator;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.github.shadowsocks.R;
-import com.github.shadowsocks.utils.*;
 
 
 public class Tools {
@@ -139,7 +135,7 @@ public class Tools {
     
 	public static String getBindingUsername(Context context){
 		String result = null;
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 //		result = pref.getString("bindingEmail", null);
 		JSONObject user = getCurrentUser(context);
 		if(user == null) return null;
@@ -155,7 +151,7 @@ public class Tools {
 	}
     
 //	public static void setBindingEmail(Context context, String email){
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 //		SharedPreferences.Editor editor = pref.edit();
 //		editor.putString("bindingEmail", email);
 //		editor.commit();
@@ -167,7 +163,7 @@ public class Tools {
 
 	public static JSONObject getCurrentUser(Context context){
 		JSONObject user = null;
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		String str = pref.getString("currentUser", null);
 		if(str != null){
 			try {
@@ -190,19 +186,19 @@ public class Tools {
 			e.printStackTrace();
 		}
 		
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString("currentUser", user.toString());
 		editor.commit();
 	}
 
 	public static String loadDeviceId(Context context){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		return pref.getString("DeviceId", null);
 	}
 
 	public static void saveDeviceId(Context context, String UUID){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString("DeviceId", UUID);
 		editor.commit();
@@ -263,6 +259,10 @@ public class Tools {
 	
 	public final static void showToastLong(Context context, String message){
 		Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+	}
+
+	public final static void showToastShort(Context context, String message){
+		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 	}
 
 	public final static Builder alert(Context context, String title, String message){
@@ -503,24 +503,24 @@ public class Tools {
 	}
 
 	public static String getPrefString(Context context, String key, String defValue){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		return pref.getString(key, defValue);
 	}
 
 	public static void setPrefString(Context context, String key, String value){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString(key, value);
 		editor.commit();
 	}
 
 	public static boolean getPrefBoolean(Context context, String key, boolean defValue){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		return pref.getBoolean(key, defValue);
 	}
 
 	public static void setPrefBoolean(Context context, String key, boolean value){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putBoolean(key, value);
 		editor.commit();
@@ -833,7 +833,7 @@ public class Tools {
 
 	public static JSONObject getCurrentNas(Context context){
 		JSONObject nas = null;
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		String str = pref.getString("currentNas", null);
 		if(str != null){
 			try {
@@ -846,24 +846,24 @@ public class Tools {
 	}
 
 	public static void setCurrentNas(Context context, JSONObject nas){
-		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString("currentNas", nas.toString());
 		editor.commit();
 	}
 
 //	public static String getCurrentRouteRegion(Context context){
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 //		return pref.getString("currentRegion", null);
 //	}
 //
 //	public static String getCurrentRouteCity(Context context){
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 //		return pref.getString("currentCity", null);
 //	}
 
 //	public static void setCurrentRoute(Context context, String region, String city){
-//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_APPEND);
+//		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_MULTI_PROCESS);
 //		SharedPreferences.Editor editor = pref.edit();
 //		editor.putString("currentRegion", region);
 //		editor.putString("currentCity", city);
@@ -994,43 +994,43 @@ public class Tools {
 		return ret;
 //		return Const.DNS_URL_ZH;
 	}
-	
+
 
 	public static boolean toggleAirplaneMode(Context context) {
 		Utils.toggleAirplaneMode(context);
 		return true;
 	}
 
-	// protected static boolean toggleAboveApiLevel17() {
-	//     // Android 4.2 and above
-
-	//     return Utils.runRootCommand("ndc resolver flushdefaultif\n"
-	//                        + "ndc resolver flushif wlan0\n");
-
-	//     //Utils.runRootCommand("settings put global airplane_mode_on 1\n"
-	//     //  + "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true\n"
-	//     //  + "settings put global airplane_mode_on 0\n"
-	//     //  + "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false\n")
-	// }
-
-	// protected static boolean toggleBelowApiLevel17(Context context) {
-	// 	// Android 4.2 below
-	// 	Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 1);
-	// 	Intent enableIntent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-	// 	enableIntent.putExtra("state", true);
-	// 	context.sendBroadcast(enableIntent);
-	// 	try {
-	// 		Thread.sleep(3000);
-	// 		Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0);
-	// 		Intent disableIntent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-	// 		disableIntent.putExtra("state", false);
-	// 	    context.sendBroadcast(disableIntent);
-	// 	} catch (InterruptedException e) {
-	// 		e.printStackTrace();
-	// 	    return false;
-	// 	}
-	// 	return true;
-	// }
+//	protected static boolean toggleAboveApiLevel17() {
+//	    // Android 4.2 and above
+//
+//	    return Utils.runRootCommand("ndc resolver flushdefaultif\n"
+//	                       + "ndc resolver flushif wlan0\n");
+//
+//	    //Utils.runRootCommand("settings put global airplane_mode_on 1\n"
+//	    //  + "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true\n"
+//	    //  + "settings put global airplane_mode_on 0\n"
+//	    //  + "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false\n")
+//	}
+//
+//	protected static boolean toggleBelowApiLevel17(Context context) {
+//		// Android 4.2 below
+//		Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 1);
+//		Intent enableIntent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+//		enableIntent.putExtra("state", true);
+//		context.sendBroadcast(enableIntent);
+//		try {
+//			Thread.sleep(3000);
+//			Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0);
+//			Intent disableIntent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+//			disableIntent.putExtra("state", false);
+//		    context.sendBroadcast(disableIntent);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		    return false;
+//		}
+//		return true;
+//	}
 
 	public static Notification getDefaultNotification(String text){
 		int icon = R.drawable.re_ic_launcher;

@@ -1,6 +1,6 @@
 package com.biganiseed.reindeer.fragment;
 
-import com.github.shadowsocks.R;
+import com.biganiseed.reindeer.R;
 import com.biganiseed.reindeer.ReindeerActivity;
 import com.biganiseed.reindeer.Tools;
 import com.umeng.analytics.MobclickAgent;

@@ -38,6 +38,8 @@
  */
 
 package com.github.shadowsocks
+import com.biganiseed.reindeer.R
+import com.biganiseed.reindeer.{BuildConfig}
 
 import java.io.File
 import java.lang.reflect.{InvocationTargetException, Method}

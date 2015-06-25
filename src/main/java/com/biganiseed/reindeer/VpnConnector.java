@@ -1,37 +1,18 @@
 package com.biganiseed.reindeer;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.github.shadowsocks.R;
-
-import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 // manager connecting life cycle and Android version difference
 public abstract class VpnConnector {
 	
-    protected static final String PROFILE_ID = "com.biganiseed.ladder";
-    protected static final String PROFILE_NAME = "Ladder";
+    protected static final String PROFILE_ID = "com.biganiseed.reindeer";
+    protected static final String PROFILE_NAME = "Reindeer";
     public static final int REQUEST_CONNECT = 2;
    
     protected ReindeerActivity activity;
@@ -42,7 +23,7 @@ public abstract class VpnConnector {
 	abstract public void init();
 	abstract public void uninit();
 	abstract public void disconnect();
-	abstract public void boradcastStatus();
+	abstract public void broadcastStatus();
 	abstract public void onStart();
 	abstract public void onStop();
 	abstract public void onActivityResult(Intent data);

@@ -1,28 +1,5 @@
 package com.biganiseed.reindeer.fragment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Future;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-//import com.actionbarsherlock.view.Menu;
-//import com.actionbarsherlock.view.MenuItem;
-import com.biganiseed.reindeer.Api;
-import com.github.shadowsocks.BuildConfig;
-import com.biganiseed.reindeer.DownloaderEx;
-import com.biganiseed.reindeer.ReindeerBaseAdapter;
-import com.biganiseed.reindeer.Const;
-import com.biganiseed.reindeer.NasAdapter;
-import com.github.shadowsocks.R;
-import com.biganiseed.reindeer.ReindeerVpnService;
-import com.biganiseed.reindeer.Tools;
-import com.github.shadowsocks.utils.*;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -30,25 +7,32 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.biganiseed.reindeer.Api;
+import com.biganiseed.reindeer.BuildConfig;
+import com.biganiseed.reindeer.Const;
+import com.biganiseed.reindeer.DownloaderEx;
+import com.biganiseed.reindeer.NasAdapter;
+import com.biganiseed.reindeer.R;
+import com.biganiseed.reindeer.ReindeerBaseAdapter;
+import com.biganiseed.reindeer.Tools;
+import com.github.shadowsocks.utils.Action;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+//import com.actionbarsherlock.view.Menu;
+//import com.actionbarsherlock.view.MenuItem;
 
 //public class Update extends WithHeaderActivity {
 public class NasFragment extends ReindeerListFragment {
@@ -163,7 +147,7 @@ public class NasFragment extends ReindeerListFragment {
 		btnStart.setVisibility(View.GONE);
 		btnStop.setVisibility(View.VISIBLE);
 		
-		if(ReindeerVpnService.isServiceStarted(a())){
+//		if(ReindeerVpnService.isServiceStarted(a())){
 			a().sendBroadcast(new Intent(Action.CLOSE()));
 //			try {
 //				Thread.sleep(500);
@@ -171,7 +155,7 @@ public class NasFragment extends ReindeerListFragment {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-		}
+//		}
 
 		int prevTestingRoute = Integer.parseInt(Tools.getPrefString(a(), "testingRouteIndex", "-1"));
 		for(int i=0; i<mListData.length(); i++){
@@ -219,14 +203,14 @@ public class NasFragment extends ReindeerListFragment {
 		if(nasIsAvailable(item)){
 			Tools.setCurrentNas(a(), item);
 			mAdapter.notifyDataSetChanged();
-			if(ReindeerVpnService.isServiceStarted(a())){
+//			if(ReindeerVpnService.isServiceStarted(a())){
 				TimerTask task = new TimerTask(){
 				    public void run(){
 						a().sendBroadcast(new Intent(Action.CLOSE()));
 				    }
 				};
 				(new Timer()).schedule(task, 500);
-			}
+//			}
 			navigate(new SwitcherFragment(), "switcher");
 		}else{
 			Tools.confirm(getActivity(), null, getString(R.string.route_not_available)).setPositiveButton(R.string.buy, new DialogInterface.OnClickListener(){
