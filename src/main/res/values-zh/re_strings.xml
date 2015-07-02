@@ -72,6 +72,7 @@
     <string name="friend_pay_send_via">向朋友发送代付请求</string>
     <string name="full_version_x">如果您需要购买，请点击下载包含支付功能的正式版：%s</string>
     <string name="hello_world">Hello world!</string>
+    <string name="humanizer_title">请回答问题</string>
     <string name="init_paypal">正在初始化 PayPal...</string>
     <string name="re_loading">加载中...</string>
     <string name="menu_about">检查新版本</string>

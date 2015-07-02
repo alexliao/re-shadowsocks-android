@@ -36,7 +36,7 @@ public class Const {
 //		return "192.168.1.62:3000";
 //		result = "50.97.204.3";
 //		result = "192.168.60.108:3000";
-//		result = "10.0.1.2:3000";
+		// result = "10.0.1.2:3000";
 //		result = "117.121.25.237";
 		return result;
 	}

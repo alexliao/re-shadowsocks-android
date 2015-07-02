@@ -62,6 +62,18 @@ import java.util.regex.Pattern;
 
 public class Tools {
 
+    static public int getVersionCode(Context context){
+		int ret = 0;
+    	PackageInfo pi;
+		try {
+			pi = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+			ret = pi.versionCode; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;	
+	}
+
     static public String getClientParameters(Context context){
 		return getClientParameters(context, null);	
 	}
@@ -500,6 +512,7 @@ public class Tools {
 	static public void saveCommonConfiguration(Context context, JSONObject configuration){
 		Tools.setCurrentUser(context, configuration.optJSONObject("user"));
 		Tools.setPrefString(context, "last_nas", configuration.optString("nas"));
+		Tools.setPrefString(context, "last_humanizer_question", configuration.optString("humanizer_question"));
 	}
 
 	public static String getPrefString(Context context, String key, String defValue){

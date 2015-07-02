@@ -89,7 +89,7 @@ public class Api {
 		return ret;
 	}
 
-	static public JSONObject trialAgain(Context context) throws Exception {
+	static public JSONObject trialAgain(Context context, String humanizer_answer) throws Exception {
 		JSONObject ret = null;
 		try {
 			String strResult = null;
@@ -101,6 +101,7 @@ public class Api {
 			List <NameValuePair> params = new ArrayList <NameValuePair>();
 			params.add(new BasicNameValuePair("_method", "PUT"));
 //			params.add(new BasicNameValuePair("trial", "true"));
+			params.add(new BasicNameValuePair("humanizer_answer", humanizer_answer));
 			HttpResponse httpResp = post(url, params);
 			strResult = EntityUtils.toString(httpResp.getEntity());
 			if(httpResp.getStatusLine().getStatusCode() == 200){
@@ -474,7 +475,7 @@ public class Api {
 	static public JSONObject ensureUser(Context context) throws Exception{
 		JSONObject user;
 	    if(Tools.getCurrentUser(context) == null)
-	    	user = Api.trialAgain(context);
+	    	user = Api.trialAgain(context, "");
 	    else
 	    	user = Api.getUser(context);
 		return user;

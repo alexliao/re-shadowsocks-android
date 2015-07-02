@@ -72,6 +72,7 @@
     <string name="friend_pay_send_via">Send payment request to friend</string>
     <string name="full_version_x">To purchase please download full version on %s</string>
     <string name="hello_world">Hello world!</string>
+    <string name="humanizer_title">Please answer question</string>
     <string name="init_paypal">Initializing PayPal...</string>
     <string name="re_loading">Loading...</string>
     <string name="menu_about">Check version</string>

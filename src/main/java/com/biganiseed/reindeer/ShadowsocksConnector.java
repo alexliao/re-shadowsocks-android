@@ -91,12 +91,11 @@ public class ShadowsocksConnector extends VpnConnector {
 
 	@Override
 	public void init() {
-//		ShadowVpnService.setBase(Const.EXEC_PATH);
-		if(!Tools.getPrefBoolean(activity, "shadowsocks_assets_copied", false)){
+		if(!Tools.getPrefBoolean(activity, "shadowsocks_assets_copied_1622", false)){
 			activity.ayncRun(new Runnable(){
 				@Override public void run() {
 					ReindeerUtils.reset(activity);
-					Tools.setPrefBoolean(activity, "shadowsocks_assets_copied", true);
+					Tools.setPrefBoolean(activity, "shadowsocks_assets_copied_1622", true);
 				}
 			}, null);
 		}
@@ -128,7 +127,7 @@ public class ShadowsocksConnector extends VpnConnector {
 		try {
 			if(bgService.getState() == com.github.shadowsocks.utils.State.CONNECTED())
                 sendBroadcast(com.github.shadowsocks.utils.State.CONNECTED());
-            else
+            else if(bgService.getState() == com.github.shadowsocks.utils.State.STOPPED())
                 sendBroadcast(com.github.shadowsocks.utils.State.STOPPED());
 		} catch (RemoteException e) {
 			e.printStackTrace();

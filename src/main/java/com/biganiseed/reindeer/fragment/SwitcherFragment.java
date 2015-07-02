@@ -17,6 +17,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.EditText;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 
 import com.biganiseed.reindeer.Api;
 import com.biganiseed.reindeer.Const;
@@ -442,23 +445,29 @@ public class SwitcherFragment extends BodyFragment {
 	}
 
 	void trialAgain(){
+		final EditText edit = new EditText(a());
+new AlertDialog.Builder(a())
+.setTitle(a().getString(R.string.humanizer_title))
+.setMessage(Tools.getPrefString(a(), "last_humanizer_question", ""))
+.setView(edit)
+.setNegativeButton(a().getString(android.R.string.cancel), null)
+.setPositiveButton(a().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+     public void onClick(DialogInterface dialog, int which) {
+	    final String answer=edit.getText().toString();
+	    if(answer.isEmpty()) return;
 		final Handler handler = new Handler();
-//		showDialog(0);
 		ga().showProgressDialog();
 		new Thread() {
 			public void run(){
 				try {
-					final JSONObject user = Api.trialAgain(a());
+					final JSONObject user = Api.trialAgain(a(), answer);
 					Tools.setCurrentUser(a(), user);
 					handler.post(new Runnable(){
 						@Override
 						public void run() {
-//							Toast.makeText(getApplicationContext(), getString(R.string.trial_refreshed), Toast.LENGTH_SHORT).show();
-//							successDialog(getString(R.string.trial_refreshed), Tools.formatExpirationTime(a(), new Date(user.optLong("expiration")*1000)));
 							connectToggleButton.click();
 						}
 					});
-//					finish();
 				} catch (final Exception e) {
 					handler.post(new Runnable(){
 						@Override
@@ -470,13 +479,19 @@ public class SwitcherFragment extends BodyFragment {
 					handler.post(new Runnable(){
 						@Override
 						public void run() {
-//							removeDialog(0);
 							ga().hideProgressDialog();
 						}
 					});
 				}
 			}
 		}.start();
+
+     }
+})
+.show();
+
+return;
+
 		
 	}
 	
