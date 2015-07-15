@@ -134,6 +134,14 @@ public class HeaderFragment extends ReindeerFragment {
 			}
         });
 
+        
+    	View btnShare = v.findViewById(R.id.btnShare);
+    	btnShare.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				share();
+			}
+        });
 
 		//		imgHeader = v.findViewById(R.id.imgHeader);
 //		imgHeader.setOnClickListener(new View.OnClickListener(){
@@ -143,6 +151,10 @@ public class HeaderFragment extends ReindeerFragment {
 //				else collapse();
 //			}
 //        });
+	}
+
+	void share(){
+		ga().share(getString(R.string.share_ladder_via), String.format(getString(R.string.share_ladder_desc_x), Const.SHARE_URL));
 	}
 
     public class UpdateTitleBroadcastReceiver extends BroadcastReceiver {
@@ -246,8 +258,7 @@ public class HeaderFragment extends ReindeerFragment {
 		} else if (item.getItemId() == R.id.menu_share) {
 //			navigate(new AboutFragment(), "about");
 //			ga().share(getString(R.string.share_ladder_via), String.format(getString(R.string.share_ladder_desc_x), Const.SHARE_URL));
-			String shareUrl = Const.getRootHttp(a()) + "/?ref=ra";
-			ga().share(getString(R.string.share_ladder_via), String.format(getString(R.string.share_ladder_desc_x), shareUrl));
+			share();
 			return true;
 		} else if (item.getItemId() == R.id.menu_updates) {
 			navigate(new UpdatesFragment(), "updates");

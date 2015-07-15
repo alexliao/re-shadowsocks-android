@@ -83,7 +83,7 @@
     <string name="menu_nas">线路</string>
     <string name="menu_plans">价格</string>
     <string name="menu_settings">设置</string>
-    <string name="menu_share">推荐</string>
+    <string name="menu_share">分享</string>
     <string name="menu_support">技术支持</string>
     <string name="menu_terms">服务条款</string>
     <string name="menu_updates">动态</string>
@@ -120,8 +120,8 @@
     <string name="signout">退出登录</string>
     <string name="signup">注册</string>
     <string name="slogon">不会掉线的VPN</string>
-    <string name="share_ladder_desc_x">寻路，不会掉线的翻墙VPN：%s</string>
-    <string name="share_ladder_via">推荐寻路给朋友</string>
+    <string name="share_ladder_desc_x">寻路，不会掉线的一键翻墙VPN：%s</string>
+    <string name="share_ladder_via">分享寻路给朋友</string>
     <string name="start_connect">开始上网</string>
     <string name="start_testspeed">测速</string>
     <string name="stop_testspeed">停止</string>
@@ -148,7 +148,7 @@
 	<string name="version_name" formatted="false">版本%s</string>
 	<string name="version_size" formatted="false">版本%s, 大小%.2fMB</string>
 	<string name="vip_expire_at_x">VIP: %s</string>
-	<string name="website">官网: http://vpnxunlu.com</string>
+	<string name="website">官网: http://xunluvpn.com</string>
 	<string name="x_seconds">%d秒钟</string>
 	<string name="x_seconds_ago">%d秒钟前</string>
     <string name="x_seconds_later">%d秒钟后</string>

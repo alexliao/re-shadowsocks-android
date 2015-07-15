@@ -7,7 +7,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 
 public class Const {
 	public static boolean IS_RESELLER = false ; // if this build is for reseller
-	
+
 	public static String APP_NAME = "Reindeer";
 	public static final int HTTP_TIMEOUT = 10000;
 	public static final String PREFS = APP_NAME;
@@ -20,7 +20,7 @@ public class Const {
 	public static String DNS_URL_VIP = "http://reindeerdns.ba3.info/dnsvip";
 	
 	public static final String PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.biganiseed.reindeer";
-//	public static final String SHARE_URL = "http://www.reindeervpn.com/?ref=ra";
+	public static final String SHARE_URL = "http://xunluvpn.com/?ref=ra";
 	public static String TMP_FOLDER = "";
 	public static  String BROADCAST_DOWNLOAD_PROGRESS = "com.biganseed.reindeer.DOWNLOAD_PROGRESS";
 	public static final int MULITI_DOWNLOADING = 4;
@@ -46,7 +46,7 @@ public class Const {
 //		String ret = "117.121.26.210";
 //		String ret = "119.254.110.183";
 //		String ret = "45.56.85.252";
-		String ret = "66.175.221.153";
+		String ret = "45.79.87.250";
 //		if(Tools.isVip(Tools.getCurrentUser(context))) ret = "66.175.221.153" ;
 //		try{
 //			TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);  

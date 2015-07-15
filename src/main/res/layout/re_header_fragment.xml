@@ -74,14 +74,25 @@
 			android:layout_centerHorizontal="true"
 			android:clickable="true"
 	        />
+        <ImageView
+            android:id="@+id/btnShare"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignBottom="@+id/imgHeader"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="22dp"
+            android:layout_marginRight="22dp"
+            android:clickable="true"
+            android:src="@drawable/re_share" 
+            />
 		 <ProgressBar android:id="@+id/loading"
 			style="@android:style/Widget.ProgressBar.Small"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-		    android:layout_alignParentRight="true"
+			android:layout_toLeftOf="@id/btnShare"
 			android:layout_alignBottom="@id/imgHeader"
 			android:layout_marginBottom="30dp"
-			android:layout_marginRight="22dp"
+			android:layout_marginRight="16dp"
 			android:visibility="invisible"
 		    />
 	   	</RelativeLayout>
