@@ -148,7 +148,7 @@
 	<string name="version_name" formatted="false">版本%s</string>
 	<string name="version_size" formatted="false">版本%s, 大小%.2fMB</string>
 	<string name="vip_expire_at_x">VIP: %s</string>
-	<string name="website">官网: http://xunluvpn.com</string>
+	<string name="website">官网: http://xunluvpn.info</string>
 	<string name="x_seconds">%d秒钟</string>
 	<string name="x_seconds_ago">%d秒钟前</string>
     <string name="x_seconds_later">%d秒钟后</string>
