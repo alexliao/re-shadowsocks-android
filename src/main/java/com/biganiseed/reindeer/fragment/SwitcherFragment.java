@@ -95,21 +95,21 @@ public class SwitcherFragment extends BodyFragment {
         View v = inflater.inflate(R.layout.re_switcher_fragment, container, false);
         bind(v);
 
-//		ga().ayncRun(new Runnable(){
-//			@Override public void run() {
-//				try {
-//					if(Tools.getPrefString(a(), "root_valid", "false").equalsIgnoreCase("false")
-//						||	Tools.getPrefString(a(), Const.getRootIpKey(a()), null) == null) 
-//						Api.checkDns(a());
-//
-//					Tools.setPrefString(a(), "root_valid", "false");
-//					JSONObject user = Api.ensureUser(a());
-//					Tools.setCurrentUser(a(), user);
-//					Tools.setPrefString(a(), "root_valid", "true");
-//				} catch (Exception e) {	throw new RuntimeException(e);	}
-//			}
-//		}, new Runnable(){@Override	public void run() {	initShortcuts(); }});
-		initShortcuts();
+		ga().ayncRun(new Runnable(){
+			@Override public void run() {
+				try {
+					if(Tools.getPrefString(a(), "root_valid", "false").equalsIgnoreCase("false")
+						||	Tools.getPrefString(a(), Const.getRootIpKey(a()), null) == null) 
+						Api.checkDns(a());
+
+					Tools.setPrefString(a(), "root_valid", "false");
+					JSONObject user = Api.ensureUser(a());
+					Tools.setCurrentUser(a(), user);
+					Tools.setPrefString(a(), "root_valid", "true");
+				} catch (Exception e) {	/*throw new RuntimeException(e);*/	}
+			}
+		}, new Runnable(){@Override	public void run() {	initShortcuts(); }});
+		// initShortcuts();
 
 		return v;
     }

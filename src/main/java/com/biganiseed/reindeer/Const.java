@@ -38,6 +38,10 @@ public class Const {
 //		result = "192.168.60.108:3000";
 		// result = "10.0.1.2:3000";
 //		result = "117.121.25.237";
+		if(result == null){
+			 Api.checkDns(context);
+			 result = Tools.getPrefString(context, getRootIpKey(context), null);
+		}
 		return result;
 	}
 	
@@ -46,7 +50,8 @@ public class Const {
 //		String ret = "117.121.26.210";
 //		String ret = "119.254.110.183";
 //		String ret = "45.56.85.252";
-		String ret = "192.81.132.137";
+		// String ret = "173.230.146.247";
+		String ret = null;
 //		if(Tools.isVip(Tools.getCurrentUser(context))) ret = "66.175.221.153" ;
 //		try{
 //			TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);  
