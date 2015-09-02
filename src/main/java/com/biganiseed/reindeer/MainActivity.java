@@ -99,6 +99,14 @@ public class MainActivity extends ReindeerActivity {
 //		PushAgent pushAgent = PushAgent.getInstance(this);
 //		pushAgent.enable();
 
+		ayncRun(new Runnable(){
+			@Override public void run() {
+				try {
+					Api.checkDns(MainActivity.this); // refresh root ip each time open the app;
+				} catch (Exception e) {	/*throw new RuntimeException(e);*/	}
+			}
+		}, new Runnable(){@Override	public void run() {	/*initShortcuts();*/ }});
+
 	}
 	
 

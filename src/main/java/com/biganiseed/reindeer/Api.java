@@ -311,10 +311,10 @@ public class Api {
 						}
 					}
 				}
-				Log.d(Const.APP_NAME,"getRootIp: "+result);	    	
-		    	Tools.addLog(context, "getRootIp: "+result);
+				Log.d(Const.APP_NAME,"gotRootIp: "+result);	    	
+		    	Tools.addLog(context, "gotRootIp: "+result);
 			}else{
-				Log.d(Const.APP_NAME,"getRootIp: err: "+httpResp.getStatusLine().getStatusCode());	    	
+				Log.d(Const.APP_NAME,"getRootIp err: "+httpResp.getStatusLine().getStatusCode());	    	
 		    	Tools.addLog(context, "getRootIp err: "+httpResp.getStatusLine().getStatusCode());
 			}
 		} catch (Exception e) {

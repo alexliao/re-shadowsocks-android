@@ -72,7 +72,7 @@ public class Const {
 			e.printStackTrace();
 		}
 		String ret = "root_ip_"+pi.versionCode;
-		if(Tools.isVip(Tools.getCurrentUser(context))) ret = "root_ip_vip_"+pi.versionCode;
+		// if(Tools.isVip(Tools.getCurrentUser(context))) ret = "root_ip_vip_"+pi.versionCode;
 		return ret;
 	}
 }
