@@ -39,7 +39,7 @@ public class HelpFragment extends BodyFragment {
         View v = inflater.inflate(R.layout.re_help_fragment, container, false);
         webview = (WebView) v.findViewById(R.id.webview);
         webview.setBackgroundColor(Color.TRANSPARENT);
-        url = Const.getRootHttp(a())+"/faq_"+(Tools.getLang().equals("zh")? "zh" : "en") + "?" + System.currentTimeMillis();
+        url = Const.getRootHttpNoSSL(a())+"/faq_"+(Tools.getLang().equals("zh")? "zh" : "en") + "?" + System.currentTimeMillis();
         url += "&" + Tools.getClientParameters(a());
 
         View btnFlushDns = v.findViewById(R.id.btnFlushDns);

@@ -16,7 +16,7 @@ public class Terms extends ReindeerActivity {
         setContentView(R.layout.re_terms);
         
         webview = (WebView) this.findViewById(R.id.webview);
-        url = Const.getRootHttp(this)+"/terms_"+(Tools.getLang().equals("zh")? "zh" : "en");
+        url = Const.getRootHttpNoSSL(this)+"/terms_"+(Tools.getLang().equals("zh")? "zh" : "en");
     }
 
     @Override

@@ -278,7 +278,7 @@ public class OrderFragment extends BodyFragment {
     	Tools.confirm(a(), null, prompt).setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Uri uri = Uri.parse(Const.getRootHttp(a()) + "/account/download_dealer?" + Tools.getClientParameters(a()) );
+				Uri uri = Uri.parse(Const.getRootHttpNoSSL(a()) + "/account/download_dealer?" + Tools.getClientParameters(a()) );
 				startActivity(new Intent(Intent.ACTION_VIEW, uri));
 				Toast.makeText(a(), getString(R.string.downloading_prompt), Toast.LENGTH_LONG).show();
 			}

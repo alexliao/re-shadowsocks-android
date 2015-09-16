@@ -43,7 +43,7 @@ public class UpdatesFragment extends BodyFragment {
         
         webview = (WebView) v.findViewById(R.id.webview);
         webview.setBackgroundColor(Color.TRANSPARENT);
-        url = Const.getRootHttp(a())+"/updates_"+(Tools.getLang().equals("zh")? "zh" : "en") + "?" + System.currentTimeMillis();
+        url = Const.getRootHttpNoSSL(a())+"/updates_"+(Tools.getLang().equals("zh")? "zh" : "en") + "?" + System.currentTimeMillis();
         url += "&" + Tools.getClientParameters(a());
 
         return v;

@@ -90,6 +90,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.biganiseed.reindeer.Api;
+
 public abstract class ReindeerListFragment extends BodyFragment {
 	private int mLayoutId;
 	protected ListView mList = null;
@@ -380,7 +382,7 @@ public abstract class ReindeerListFragment extends BodyFragment {
 			HttpConnectionParams.setConnectionTimeout(httpParameters,
 					Const.HTTP_TIMEOUT);
 			httpReq.setParams(httpParameters);
-			HttpResponse httpResp = new DefaultHttpClient().execute(httpReq);
+			HttpResponse httpResp = Api.initHttpClient(httpParameters).execute(httpReq);
 			strResult = EntityUtils.toString(httpResp.getEntity());
 			int code = httpResp.getStatusLine().getStatusCode();
 			if (code == 200) {

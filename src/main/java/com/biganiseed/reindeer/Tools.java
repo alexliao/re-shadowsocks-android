@@ -125,7 +125,7 @@ public class Tools {
 				deviceId = info.getMacAddress(); // need ACCESS_WIFI_STATE access permission
 			}
 			if(deviceId == null) throw new RuntimeException("Can't get device ID");
-//deviceId = "test";
+// deviceId = "test1234567890b";
 			result = new String(Base64.encode(deviceId.getBytes()));
 			result = Tools.urlSafeEscape(result);
 //			saveDeviceId(context, result);
@@ -892,7 +892,7 @@ public class Tools {
 				try {
 					//DownloadImage.toFile(Const.HTTP_PREFIX + relative_url , f, timeout);
 					String url = relative_url;
-					if(relative_url.substring(0, 1).equals("/")) url = Const.getRootHttp(context) + relative_url;
+					if(relative_url.substring(0, 1).equals("/")) url = Const.getRootHttpNoSSL(context) + relative_url;
 					DownloadImage.toFile(url , f, timeout);
 					ret = true;
 				} catch (Exception e) {

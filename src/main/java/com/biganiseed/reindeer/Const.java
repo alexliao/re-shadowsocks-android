@@ -27,8 +27,12 @@ public class Const {
 	public static final boolean DEFAULT_SMART_ROUTE = true;
 //	public static final String EXEC_PATH = "/data/data/com.biganiseed.reindeer/";
 	
-	public static String getRootHttp(Context context){
-		return "http://"+getRootIp(context);
+    public static String getRootHttpNoSSL(Context context){
+        return "http://"+getRootIp(context);
+    }
+
+   	public static String getRootHttp(Context context){
+		return "https://"+getRootIp(context);
 	}
 
 	public static String getRootIp(final Context context){
