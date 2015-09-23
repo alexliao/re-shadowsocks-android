@@ -591,7 +591,7 @@ public class Api {
 			Locale lc = Locale.getDefault();
 			String lang = lc.getLanguage();
 			String strResult = null;
-			String url = "http://" + server + "/ssc/sc";
+			String url = "https://" + server + "/ssc/sc";
 			String username = Tools.getCurrentUser(context).getString("username");
 			String password = Tools.getCurrentUser(context).optString("password_encrypted");
 			url += "?username=" + URLEncoder.encode(username); 
