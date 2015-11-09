@@ -252,6 +252,9 @@ public class HeaderFragment extends ReindeerFragment {
 //		} else if (item.getItemId() == R.id.menu_plans) {
 //			navigate(new PlansFragment(), "plans");
 //			return true;
+		} else if (item.getItemId() == R.id.menu_apps) {
+			navigate(new AppsFragment(), "apps");
+			return true;
 		} else if (item.getItemId() == R.id.menu_help) {
 			navigate(new HelpFragment(), "help");
 			return true;

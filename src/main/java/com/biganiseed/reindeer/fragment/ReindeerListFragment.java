@@ -354,7 +354,8 @@ public abstract class ReindeerListFragment extends BodyFragment {
 				if (mErr == null) {
 //					if (getCacheId() != null)
 //						cacheData(mListData.toString());
-					mAdapter.setData(mListData);
+//					mAdapter.setData(mListData);
+					setData();
 					refreshListView();
 					loadedMore(true);
 				} else {
@@ -511,4 +512,9 @@ public abstract class ReindeerListFragment extends BodyFragment {
 //		else
 			mList.setVisibility(View.GONE);
 	}
+
+    protected void setData(){
+		mAdapter.setData(mListData);
+    }
+	
 }

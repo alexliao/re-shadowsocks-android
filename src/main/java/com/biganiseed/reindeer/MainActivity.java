@@ -107,6 +107,7 @@ public class MainActivity extends ReindeerActivity {
 			}
 		}, new Runnable(){@Override	public void run() {	/*initShortcuts();*/ }});
 
+		tryCacheApps();
 	}
 	
 
@@ -203,4 +204,16 @@ public class MainActivity extends ReindeerActivity {
 	    	  super.onBackPressed();
 	      }
 	  }
+
+    public void tryCacheApps(){
+    	if(Tools.isCaching) return;
+		new Thread() {
+			public void run(){
+				int total = Tools.getAppsCount(MainActivity.this);
+		    	if(new AppHelper(MainActivity.this).getAppCount() != total){
+		    		Tools.cacheMyApps(MainActivity.this);
+				}
+			}
+		}.start();
+    }
 }

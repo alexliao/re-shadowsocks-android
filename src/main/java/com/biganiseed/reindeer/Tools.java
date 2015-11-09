@@ -59,6 +59,12 @@ import java.util.regex.Pattern;
 
 //import com.nineoldandroids.view.animation.AnimatorProxy;
 
+import java.util.List;
+import org.json.JSONArray;
+import com.biganiseed.reindeer.data.App;
+import android.database.sqlite.SQLiteDatabase;
+import android.content.pm.PackageManager.NameNotFoundException;
+
 
 public class Tools {
 
@@ -1052,6 +1058,71 @@ public class Tools {
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		//notification.defaults = Notification.DEFAULT_SOUND;
 		return notification;
+	}
+
+	public static boolean saveLocalApkIcon(PackageManager pm, String packageName){
+		boolean ret = true;
+		PackageInfo info;
+		try {
+			info = pm.getPackageInfo(packageName, 0);
+			if(App.saveIcon(pm, info) != null) ret = true;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+			ret = false;
+		}
+		return ret;
+	}
+
+	static public boolean isCaching = false;
+	static public void cacheMyApps(Context context) {
+		Log.v(Const.APP_NAME, Const.APP_NAME + " caching apps...");
+		try{
+			isCaching = true;
+			JSONArray ret = new JSONArray();
+			PackageManager pm = context.getPackageManager();
+			List<PackageInfo> pckInfos = pm.getInstalledPackages(PackageManager.GET_META_DATA | PackageManager.GET_SIGNATURES);
+			AppHelper helper = new AppHelper(context);
+			helper.clearAll();
+			SQLiteDatabase db = helper.getHelper().getWritableDatabase();
+			int count = 0;
+			int total = getAppsCount(context);
+			for(int i=0; i<pckInfos.size(); i++){
+				PackageInfo info = pckInfos.get(i);
+	        	if(!info.applicationInfo.sourceDir.matches("/system.*")){
+					App app = new App(pm, info);
+					ret.put(app.getJSON());
+					helper.addApp(db, app);
+					count++;
+					Intent intent = new Intent(Const.BROADCAST_CACHE_APPS_PROGRESS);
+					intent.putExtra(Const.KEY_COUNT, count);
+					intent.putExtra(Const.KEY_TOTAL, total);
+					intent.putExtra(Const.KEY_APP, app.getJSON().toString());
+					context.sendBroadcast(intent);
+//					Log.d("", app.getName() + ": " + info.applicationInfo.flags);
+				}
+			}
+//			Utils.closeDB(db);
+			Log.v(Const.APP_NAME, Const.APP_NAME + " cached apps");
+			Intent intent = new Intent(Const.BROADCAST_CACHE_APPS_PROGRESS);
+			intent.putExtra(Const.KEY_FINISHED, true);
+			context.sendBroadcast(intent);
+			isCaching = false;
+		}finally{
+			isCaching = false;
+		}
+//		return ret;
+	}
+	static public int getAppsCount(Context context){
+		PackageManager pm = context.getPackageManager();
+		List<PackageInfo> pckInfos = pm.getInstalledPackages(PackageManager.GET_META_DATA | PackageManager.GET_SIGNATURES);
+		int total = 0;
+		for(int i=0; i<pckInfos.size(); i++){
+			PackageInfo info = pckInfos.get(i);
+	    	if(!info.applicationInfo.sourceDir.matches("/system.*")){
+	    		total ++;
+			}
+		}
+		return total;
 	}
 
 }

@@ -75,6 +75,7 @@
     <string name="humanizer_title">请回答问题</string>
     <string name="init_paypal">正在初始化 PayPal...</string>
     <string name="re_loading">加载中...</string>
+    <string name="menu_apps">分应用代理</string>
     <string name="menu_about">检查新版本</string>
     <string name="menu_account">账户</string>
     <string name="menu_log">日志</string>
@@ -110,6 +111,8 @@
     <string name="proceed">继续</string>
     <string name="prompt_version_checking">正在检查新版本...</string>
     <string name="prompt_version_uptodate">已经是最新版本</string>
+    <string name="prompt_select_apps">＊选中的应用将直接联网不经过VPN代理</string>
+    <string name="prompt_select_apps_x">＊选中的%d个应用将直接联网不经过VPN代理</string>
     <string name="purchase">购买</string>
     <string name="route_not_available">这条线路只对VIP用户开放，您想要购买VIP吗？</string>
     <string name="route_public_info_x" formatted="false">在线用户: %d, 平均速度: %.2fMbps</string>

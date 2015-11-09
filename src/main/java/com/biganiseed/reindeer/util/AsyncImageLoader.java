@@ -63,18 +63,15 @@ public class AsyncImageLoader {
 		mCallback = callback;
 		return this;
 	}
-
 		
-//	public void loadApkPath(final String packageName, final PackageManager packageManager){
-//		load(packageName, new Loader(){
-//			@Override
-//			public void load(String uri) {
-////				File f = new File(uri);
-////				if(!f.exists())
-//					Utils.saveLocalApkIcon(packageManager, uri);
-//			}
-//		});
-//	}
+	public void loadApkPath(final String packageName, final PackageManager packageManager){
+		load(packageName, new Loader(){
+			@Override
+			public void load(String uri) {
+				Tools.saveLocalApkIcon(packageManager, uri);
+			}
+		});
+	}
 	
 	public void loadUrl(final String url){
 		load(url, new Loader(){

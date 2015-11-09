@@ -75,6 +75,7 @@
     <string name="humanizer_title">Please answer question</string>
     <string name="init_paypal">Initializing PayPal...</string>
     <string name="re_loading">Loading...</string>
+    <string name="menu_apps">Per-apps Proxy</string>
     <string name="menu_about">Check version</string>
     <string name="menu_account">Account</string>
     <string name="menu_faq">FAQ</string>
@@ -110,6 +111,8 @@
     <string name="proceed">Proceed</string>
     <string name="prompt_version_checking">Checking new version...</string>
     <string name="prompt_version_uptodate">Your Reindeer is up to date</string>
+    <string name="prompt_select_apps">* Selected apps are allowed access internet directly without proxy</string>
+    <string name="prompt_select_apps_x">* Selected %d apps are allowed access internet directly without proxy</string>
     <string name="purchase">Purchase</string>
     <string name="route_not_available">This route is only available for VIP users. Would you like to buy VIP?</string>
     <string name="route_public_info_x" formatted="false">Online: %d, average: %.2fMbps</string>

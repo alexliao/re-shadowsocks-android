@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    style="@style/box"
+    android:paddingTop="@dimen/headerHeightCollapsed"
+	>
+	<LinearLayout android:id="@+id/viewProgress" 
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="@dimen/padding"
+		android:gravity="right|center_vertical"
+		android:visibility="gone"
+		>
+		<ProgressBar android:id="@+id/progressBar" 
+			style="@style/ProgressBar"
+		/>
+	</LinearLayout>
+    <ListView  android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:divider="@color/none"
+        android:scrollbarStyle="insideOverlay"
+        android:fastScrollEnabled="false"
+	    />
+	<TextView  android:id="@+id/txtPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/prompt_select_apps"
+	    android:textSize="16sp"
+	    android:layout_marginTop="@dimen/padding"
+	    />
+		
+</LinearLayout>

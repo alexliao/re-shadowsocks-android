@@ -27,6 +27,16 @@ public class Const {
 	public static final boolean DEFAULT_SMART_ROUTE = true;
 //	public static final String EXEC_PATH = "/data/data/com.biganiseed.reindeer/";
 	
+	public static  String BROADCAST_REFRESH_APP = "com.biganseed.reindeer.REFRESH_APP";
+	public static  String BROADCAST_CACHE_APPS_PROGRESS = "com.biganseed.reindeer.CACHE_APPS_PROGRESS";
+	public static final String KEY_PERCENT = "percent";
+	public static final String KEY_PACKAGE = "package";
+	public static final String KEY_APP = "app";
+	public static final String KEY_COUNT = "count";
+	public static final String KEY_TOTAL = "total";
+	public static final String KEY_REFRESH = "refresh";
+	public static final String KEY_FINISHED = "finished";
+
     public static String getRootHttpNoSSL(Context context){
         return "http://"+getRootIp(context);
     }

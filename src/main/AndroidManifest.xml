@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.biganiseed.reindeer"
-    android:versionCode="1670"
-    android:versionName="1.67">
+    android:versionCode="1700"
+    android:versionName="1.7">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -85,6 +85,15 @@
 	        android:process=".checker"
 	        >
 	    </service>
+
+        <receiver android:name=".LocalAppRefresher">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
 
 		<meta-data android:value="53d1bdba56240b994801fa48" android:name="UMENG_APPKEY"></meta-data>
 		<meta-data android:value="main" android:name="UMENG_CHANNEL"/>

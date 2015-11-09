@@ -4,7 +4,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-	<dimen name="padding">10dp</dimen>
+	<dimen name="padding">8dp</dimen>
 	<dimen name="pay_button_width">278dp</dimen>
 	<dimen name="headerHeight">215dp</dimen>
 	<dimen name="headerHeightCollapsed">60dp</dimen>
