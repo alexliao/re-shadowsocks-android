@@ -40,6 +40,7 @@
 package com.github.shadowsocks
 import com.biganiseed.reindeer.R
 import com.biganiseed.reindeer.{BuildConfig}
+import com.biganiseed.reindeer.Tools
 
 import java.io.File
 import java.util.Locale
@@ -199,28 +200,35 @@ class ShadowsocksVpnService extends VpnService with BaseService {
 
       builder.allowFamily(android.system.OsConstants.AF_INET6)
 
-      if (!config.isGlobalProxy) {
-        val apps = AppManager.getProxiedApps(this, config.proxiedAppString)
-        val pkgSet: mutable.HashSet[String] = new mutable.HashSet[String]
-        for (app <- apps) {
-          if (app.proxied) {
-            pkgSet.add(app.packageName)
-          }
-        }
-        for (pkg <- pkgSet) {
-          if (!config.isBypassApps) {
-            builder.addAllowedApplication(pkg)
-          } else {
-            builder.addDisallowedApplication(pkg)
-          }
-        }
+    //   if (!config.isGlobalProxy) {
+    //     val apps = AppManager.getProxiedApps(this, config.proxiedAppString)
+    //     val pkgSet: mutable.HashSet[String] = new mutable.HashSet[String]
+    //     for (app <- apps) {
+    //       if (app.proxied) {
+    //         pkgSet.add(app.packageName)
+    //       }
+    //     }
+    //     for (pkg <- pkgSet) {
+    //       if (!config.isBypassApps) {
+    //         builder.addAllowedApplication(pkg)
+    //       } else {
+    //         builder.addDisallowedApplication(pkg)
+    //       }
+    //     }
 
-        if (config.isBypassApps) {
-          builder.addDisallowedApplication(this.getPackageName)
-        }
-      } else {
-        builder.addDisallowedApplication(this.getPackageName)
+    //     if (config.isBypassApps) {
+    //       builder.addDisallowedApplication(this.getPackageName)
+    //     }
+    //   } else {
+    //     builder.addDisallowedApplication(this.getPackageName)
+    //   }
+    // }
+
+      val apps = Tools.getPrefString(this, "bypass_apps", "").split('\n')
+      for (app <- apps) {
+          builder.addDisallowedApplication(app)
       }
+      builder.addDisallowedApplication(this.getPackageName)
     }
 
     if (InetAddressUtils.isIPv6Address(config.proxy)) {

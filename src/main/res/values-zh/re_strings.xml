@@ -109,10 +109,11 @@
     <string name="plan3">一季 $10</string>
     <string name="plan4">一年 $40</string>
     <string name="proceed">继续</string>
-    <string name="prompt_version_checking">正在检查新版本...</string>
-    <string name="prompt_version_uptodate">已经是最新版本</string>
+    <string name="prompt_bypass_apps">安卓5.0以上才支持分应用代理，抱歉您的手机无法使用此功能</string>
     <string name="prompt_select_apps">＊选中的应用将直接联网不经过VPN代理</string>
     <string name="prompt_select_apps_x">＊选中的%d个应用将直接联网不经过VPN代理</string>
+    <string name="prompt_version_checking">正在检查新版本...</string>
+    <string name="prompt_version_uptodate">已经是最新版本</string>
     <string name="purchase">购买</string>
     <string name="route_not_available">这条线路只对VIP用户开放，您想要购买VIP吗？</string>
     <string name="route_public_info_x" formatted="false">在线用户: %d, 平均速度: %.2fMbps</string>

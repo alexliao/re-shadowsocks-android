@@ -152,14 +152,19 @@ public class AppsFragment extends ReindeerListFragment {
 		return new LocalAppsAdapter(ga(), mListData, mLoadingImages);
 	}
 
-	@Override
-	protected void onClickItem(int position) throws JSONException {
-		JSONObject item = (JSONObject) ((LocalAppsAdapter) mAdapter).getItem(position);
-    	App app = new App(item);
-    	app.saveAsSelected(a(), !app.isSelected(a()));
-		this.mAdapter.notifyDataSetChanged();
-        bindPrompt();
-	}
+  @Override
+  protected void onClickItem(int position) throws JSONException {
+    if(Tools.is5x()){
+      JSONObject item = (JSONObject) ((LocalAppsAdapter) mAdapter).getItem(position);
+        App app = new App(item);
+        app.saveAsSelected(a(), !app.isSelected(a()));
+      this.mAdapter.notifyDataSetChanged();
+          bindPrompt();
+      a().sendBroadcast(new Intent(Action.CLOSE()));
+    }else{
+      Tools.alert(a(), null, getString(R.string.prompt_bypass_apps)).setPositiveButton(android.R.string.ok, null).show();;
+    }
+  }
 
 	@Override
 	protected void setContent() {

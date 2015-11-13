@@ -179,6 +179,10 @@ public class Tools {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 	}
 
+    static public boolean is5x(){
+        return Build.VERSION.SDK_INT >= 21;
+	}
+
 	public static JSONObject getCurrentUser(Context context){
 		JSONObject user = null;
 		SharedPreferences pref = context.getSharedPreferences(Const.PREFS, Activity.MODE_PRIVATE);
