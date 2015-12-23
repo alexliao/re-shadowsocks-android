@@ -1129,4 +1129,14 @@ public class Tools {
 		return total;
 	}
 
+    public static boolean isExpired(JSONObject user){
+        if(user == null) return false;
+        boolean result = false;
+        long expiration = user.optLong("expiration");
+        Date now = new Date();
+        long distance = expiration - now.getTime()/1000;
+        if(distance < 0) result = true;
+        return result;
+    }
+
 }

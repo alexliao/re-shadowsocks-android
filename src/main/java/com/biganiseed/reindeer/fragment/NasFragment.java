@@ -105,16 +105,19 @@ public class NasFragment extends ReindeerListFragment {
     	btnStart.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(!Tools.isWifi(a())){
-			    	Tools.confirm(a(), null, getString(R.string.test_confirm)).setPositiveButton(R.string.proceed, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							startTest();
-						}
-					}).show();
-				}else
-					startTest();
-					
+				JSONObject user = Tools.getCurrentUser(a());
+				if(Tools.isExpired(user)){
+					Tools.showToastLong(a(), getString(R.string.prompt_hide_ip));
+				}else{
+					if(!Tools.isWifi(a())){
+						Tools.confirm(a(), null, getString(R.string.test_confirm)).setPositiveButton(R.string.proceed, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								startTest();
+							}
+						}).show();
+					}else startTest();
+				}
 			}
 		});
     	

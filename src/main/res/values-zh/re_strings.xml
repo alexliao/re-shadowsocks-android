@@ -114,6 +114,7 @@
     <string name="prompt_select_apps_x">＊选中的%d个应用将直接联网不经过VPN代理</string>
     <string name="prompt_version_checking">正在检查新版本...</string>
     <string name="prompt_version_uptodate">已经是最新版本</string>
+    <string name="prompt_hide_ip">过期用户不能测速，请重新申请试用</string>
     <string name="purchase">购买</string>
     <string name="route_not_available">这条线路只对VIP用户开放，您想要购买VIP吗？</string>
     <string name="route_public_info_x" formatted="false">在线用户: %d, 平均速度: %.2fMbps</string>

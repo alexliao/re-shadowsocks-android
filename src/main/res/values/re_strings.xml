@@ -114,6 +114,7 @@
     <string name="prompt_select_apps_x">* Selected %d apps are allowed access internet directly without proxy</string>
     <string name="prompt_version_checking">Checking new version...</string>
     <string name="prompt_version_uptodate">Your Reindeer is up to date</string>
+    <string name="prompt_hide_ip">Expired user can not test speed, please get another trial</string>
     <string name="purchase">Purchase</string>
     <string name="route_not_available">This route is only available for VIP users. Would you like to buy VIP?</string>
     <string name="route_public_info_x" formatted="false">Online: %d, average: %.2fMbps</string>
