@@ -153,7 +153,7 @@
     <string name="version_name" formatted="false">version %s</string>  
     <string name="version_size" formatted="false">version %s, size %.2fMB</string>  
     <string name="vip_expire_at_x">VIP: %s</string>
-    <string name="website">Website: http://xunluvpn.info</string>
+    <string name="website">Website: http://xunluvpn.org</string>
     <string name="x_seconds">%d seconds</string>
     <string name="x_seconds_ago">%d seconds ago</string>
     <string name="x_seconds_later">%d seconds later</string>

@@ -20,7 +20,7 @@ public class Const {
 	public static String DNS_URL_VIP = "http://reindeerdns.ba3.info/dnsvip";
 	
 	public static final String PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.biganiseed.reindeer";
-	public static final String SHARE_URL = "http://xunluvpn.info/?ref=ra";
+	public static final String SHARE_URL = "http://xunluvpn.org/?ref=ra";
 	public static String TMP_FOLDER = "";
 	public static  String BROADCAST_DOWNLOAD_PROGRESS = "com.biganseed.reindeer.DOWNLOAD_PROGRESS";
 	public static final int MULITI_DOWNLOADING = 4;
