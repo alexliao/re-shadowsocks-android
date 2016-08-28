@@ -383,7 +383,7 @@ public abstract class ReindeerListFragment extends BodyFragment {
 			HttpConnectionParams.setConnectionTimeout(httpParameters,
 					Const.HTTP_TIMEOUT);
 			httpReq.setParams(httpParameters);
-			HttpResponse httpResp = Api.initHttpClient(httpParameters).execute(httpReq);
+			HttpResponse httpResp = Api.initHttpClient(httpParameters, a()).execute(httpReq);
 			strResult = EntityUtils.toString(httpResp.getEntity());
 			int code = httpResp.getStatusLine().getStatusCode();
 			if (code == 200) {

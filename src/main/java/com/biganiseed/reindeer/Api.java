@@ -1,31 +1,5 @@
 package com.biganiseed.reindeer;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.biganiseed.reindeer.R;
 
 import android.content.Context;
@@ -33,28 +7,51 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.net.Socket;
+import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.HttpProtocolParams;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import java.io.InputStream;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
 
 public class Api {
 
@@ -79,7 +76,7 @@ public class Api {
 			url += "&preferred_city=" + nas.optString("city");
 		}
 
-		HttpResponse httpResp = get(url);
+		HttpResponse httpResp = get(url, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() == 200){
 			strResult = Tools.xor_decrypt(strResult);
@@ -122,7 +119,7 @@ public class Api {
 			params.add(new BasicNameValuePair("_method", "PUT"));
 //			params.add(new BasicNameValuePair("trial", "true"));
 			params.add(new BasicNameValuePair("humanizer_answer", humanizer_answer));
-			HttpResponse httpResp = post(url, params);
+			HttpResponse httpResp = post(url, params, context);
 			strResult = EntityUtils.toString(httpResp.getEntity());
 			if(httpResp.getStatusLine().getStatusCode() == 200){
 				JSONObject json = new JSONObject(strResult);
@@ -153,7 +150,7 @@ public class Api {
 			params.add(new BasicNameValuePair("_method", "PUT"));
 			params.add(new BasicNameValuePair("user[username]", username));
 			params.add(new BasicNameValuePair("user[password]", password));
-			HttpResponse httpResp = post(url, params);
+			HttpResponse httpResp = post(url, params, context);
 			strResult = EntityUtils.toString(httpResp.getEntity());
 			if(httpResp.getStatusLine().getStatusCode() == 200){
 				JSONObject json = new JSONObject(strResult);
@@ -173,7 +170,7 @@ public class Api {
 		JSONObject ret = null;
 		String strResult = null;
 		String url = Const.getRootHttp(context) + "/plans.json?" + Tools.getClientParameters(context);
-		HttpResponse httpResp = get(url);
+		HttpResponse httpResp = get(url, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() == 200){
 			JSONObject json = new JSONObject(strResult);
@@ -190,7 +187,7 @@ public class Api {
 		JSONObject ret = null;
 		String strResult = null;
 		String url = Const.getRootHttp(context) + "/users/" + Tools.getCurrentUser(context).getString("id") + ".json?" + Tools.getClientParameters(context);
-		HttpResponse httpResp = get(url);
+		HttpResponse httpResp = get(url, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() == 200){
 			JSONObject json = new JSONObject(strResult);
@@ -206,7 +203,7 @@ public class Api {
 		JSONObject ret = null;
 		String strResult = null;
 		String url = Const.getRootHttp(context) + "/plans/" + planName + ".json?" + Tools.getClientParameters(context);
-		HttpResponse httpResp = get(url);
+		HttpResponse httpResp = get(url, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() == 200){
 			JSONObject json = new JSONObject(strResult);
@@ -223,7 +220,7 @@ public class Api {
 		JSONObject ret = null;
 		String strResult = null;
 		String url = Const.getRootHttp(context) + "/orders/" + orderId + ".json?order=" + orderString + "&" + Tools.getClientParameters(context);
-		HttpResponse httpResp = get(url);
+		HttpResponse httpResp = get(url, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() == 200){
 			JSONObject json = new JSONObject(strResult);
@@ -271,21 +268,21 @@ public class Api {
 //}
 	
 	
-	static protected synchronized HttpResponse get(String url) throws ClientProtocolException, IOException{
+	static protected HttpResponse get(String url, Context context) throws ClientProtocolException, IOException{
 		HttpGet httpReq = new HttpGet(url);
 		HttpParams httpParameters = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(httpParameters, Const.HTTP_TIMEOUT);
 		httpReq.setParams(httpParameters);
-		return initHttpClient(httpParameters).execute(httpReq);
+		return initHttpClient(httpParameters, context).execute(httpReq);
 	}
 
-	static protected synchronized HttpResponse post(String url, List <NameValuePair> params) throws ClientProtocolException, IOException{
+	static protected synchronized HttpResponse post(String url, List <NameValuePair> params, Context context) throws ClientProtocolException, IOException{
 		HttpPost httpReq = new HttpPost(url);
 		HttpParams httpParameters = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(httpParameters, Const.HTTP_TIMEOUT);
 		httpReq.setParams(httpParameters);
 		if (params != null) httpReq.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-		return initHttpClient(httpParameters).execute(httpReq);
+		return initHttpClient(httpParameters, context).execute(httpReq);
 	}
 
     private static HttpClient client = null; 
@@ -294,76 +291,36 @@ public class Api {
       * @param params 
       * @return 
       */ 
-     public static synchronized HttpClient initHttpClient(HttpParams params) { 
-         if(client == null){ 
-             try { 
-                 KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType()); 
-                 trustStore.load(null, null); 
-                   
-                 SSLSocketFactory sf = new SSLSocketFactoryImp(trustStore); 
-                 //允许所有主机的验证 
-                 sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER); 
-                   
-                 HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1); 
-                 HttpProtocolParams.setContentCharset(params, HTTP.UTF_8); 
-                 // 设置http和https支持 
-                 SchemeRegistry registry = new SchemeRegistry(); 
-                 registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80)); 
-                 registry.register(new Scheme("https", sf, 443)); 
-                   
-                 ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry); 
-                   
-                 return new DefaultHttpClient(ccm, params); 
-             } catch (Exception e) { 
-                 e.printStackTrace(); 
-                 return new DefaultHttpClient(params); 
-             } 
-         } 
-         return client; 
-     } 
-     
-    public static class SSLSocketFactoryImp extends SSLSocketFactory { 
-         final SSLContext sslContext = SSLContext.getInstance("TLS"); 
-     
-         public SSLSocketFactoryImp(KeyStore truststore) 
-                 throws NoSuchAlgorithmException, KeyManagementException, 
-                 KeyStoreException, UnrecoverableKeyException { 
-             super(truststore); 
-     
-             TrustManager tm = new X509TrustManager() { 
-                 public java.security.cert.X509Certificate[] getAcceptedIssuers() { 
-                     return null; 
-                 } 
-     
-                 @Override 
-                 public void checkClientTrusted( 
-                         java.security.cert.X509Certificate[] chain, 
-                         String authType) 
-                         throws java.security.cert.CertificateException { 
-                 } 
-     
-                 @Override 
-                 public void checkServerTrusted( 
-                         java.security.cert.X509Certificate[] chain, 
-                         String authType) 
-                         throws java.security.cert.CertificateException { 
-                 } 
-             }; 
-             sslContext.init(null, new TrustManager[] { tm }, null); 
-         } 
-     
-         @Override 
-         public Socket createSocket(Socket socket, String host, int port, 
-                 boolean autoClose) throws IOException, UnknownHostException { 
-             return sslContext.getSocketFactory().createSocket(socket, host, 
-                     port, autoClose); 
-         } 
-     
-         @Override 
-         public Socket createSocket() throws IOException { 
-             return sslContext.getSocketFactory().createSocket(); 
-         } 
-     }     
+	public static synchronized HttpClient initHttpClient(HttpParams params, Context context) {
+		if(client == null){
+			try {
+				InputStream in = context.getAssets().open("ca.crt");
+				Certificate cer = CertificateFactory.getInstance("X.509").generateCertificate(in);
+				KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+				trustStore.load(null, null);
+				trustStore.setCertificateEntry("an_alias", cer);
+
+				SSLSocketFactory sf = new SSLSocketFactory(trustStore);
+				//允许所有主机的验证
+				sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+
+				HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+				HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
+				// 设置http和https支持
+				SchemeRegistry registry = new SchemeRegistry();
+				registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+				registry.register(new Scheme("https", sf, 443));
+
+				ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
+
+				return new DefaultHttpClient(ccm, params);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new DefaultHttpClient(params);
+			}
+		}
+		return client;
+	}
 
 	static public boolean checkVersion(Context context) throws Exception{
 		boolean isObsolete = false;
@@ -390,7 +347,7 @@ public class Api {
     	Tools.addLog(context,"getRootIp... from " + url.substring(0, 21));
 		HttpResponse httpResp;
 		try {
-			httpResp = get(url);
+			httpResp = get(url, context);
 			body = EntityUtils.toString(httpResp.getEntity());
 			if(httpResp.getStatusLine().getStatusCode() == 200){
 				Pattern p = Pattern.compile("\\[dns\\](.*?)\\[dns\\]");
@@ -432,7 +389,7 @@ public class Api {
 			params.add(new BasicNameValuePair("username", username));
 			params.add(new BasicNameValuePair("acctsessionid", acctsessionid));
 //			HttpResponse httpResp = post(url, params);
-			post(url, params);
+			post(url, params, context);
 		} catch (Exception e) {
 //			throw new Exception(e.getMessage());
 			e.printStackTrace();
@@ -494,7 +451,7 @@ public class Api {
 		url += "?username=" + URLEncoder.encode(username); 
 		url += "&password=" + URLEncoder.encode(password); 
 		url += "&" + Tools.getClientParameters(context);
-		HttpResponse httpResp = get(url);
+		HttpResponse httpResp = get(url, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() == 200){
 			JSONObject json = new JSONObject(strResult);
@@ -520,7 +477,7 @@ public class Api {
 		List <NameValuePair> params = new ArrayList <NameValuePair>();
 		params.add(new BasicNameValuePair("username", username));
 		params.add(new BasicNameValuePair("password", password));
-		HttpResponse httpResp = post(url, params);
+		HttpResponse httpResp = post(url, params, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() == 200){
 			JSONObject json = new JSONObject(strResult);
@@ -541,7 +498,7 @@ public class Api {
 		String url = Const.getRootHttp(context) + "/account/signout.json";
 		url += "?username=" + URLEncoder.encode(username); 
 		url += "&" + Tools.getClientParameters(context);
-		HttpResponse httpResp = post(url, null);
+		HttpResponse httpResp = post(url, null, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() == 200){
 			JSONObject json = new JSONObject(strResult);
@@ -603,7 +560,7 @@ public class Api {
 			url += "&nas_city=" + URLEncoder.encode(Tools.getCurrentNas(context).optString("city"));
 //			url += "&lang=" + lang;
 			url += "&" + Tools.getClientParameters(context);
-			HttpResponse httpResp = get(url);
+			HttpResponse httpResp = get(url, context);
 			if(httpResp.getStatusLine().getStatusCode() == 401){
 				ret = EntityUtils.toString(httpResp.getEntity()).trim();
 			}
@@ -629,7 +586,7 @@ public class Api {
 		params.add(new BasicNameValuePair("speed[network_type]", network_type));
 		params.add(new BasicNameValuePair("speed[speed]", ""+speed));
 		params.add(new BasicNameValuePair("speed[elapsed]", ""+elapsed));
-		HttpResponse httpResp = post(url, params);
+		HttpResponse httpResp = post(url, params, context);
 //		strResult = EntityUtils.toString(httpResp.getEntity());
 //		if(httpResp.getStatusLine().getStatusCode() == 200){
 //			JSONObject json = new JSONObject(strResult);
@@ -643,7 +600,7 @@ public class Api {
 		String strResult = null;
 //		String url = Const.getRootHttp(context) + "/payments/pay_order/" + orderString + "?order_memo=client_ensure_payment&" + Tools.getClientParameters(context);
 		String url = Const.getRootHttp(context) + "/payments/pay_order/" + orderString + "?ext_order_id=" + extOrderId + "&token=" + token + "&" + Tools.getClientParameters(context);
-		HttpResponse httpResp = post(url, null);
+		HttpResponse httpResp = post(url, null, context);
 		strResult = EntityUtils.toString(httpResp.getEntity());
 		if(httpResp.getStatusLine().getStatusCode() < 300){
 			JSONObject json = new JSONObject(strResult);
