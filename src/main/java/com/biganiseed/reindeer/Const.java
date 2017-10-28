@@ -16,8 +16,8 @@ public class Const {
 	public static final String ORDER_PREFIX = "RE";
 //	public static String DNS_URL = "http://www.douban.com/note/317378727/"; // REDNS
 //	public static String DNS_URL_DEFAULT = "http://about.me/alex_liao/collections/redns"; // for oversea users
-	public static String DNS_URL_DEFAULT = "http://reindeerdns.ba3.info/dns";
-	public static String DNS_URL_VIP = "http://reindeerdns.ba3.info/dnsvip";
+	public static String DNS_URL_DEFAULT = "http://redns.ba3.info/dns";
+	public static String DNS_URL_VIP = "http://redns.ba3.info/dnsvip";
 	
 	public static final String PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.biganiseed.reindeer";
 	public static final String SHARE_URL = "http://xunluvpn.org/?ref=ra";
