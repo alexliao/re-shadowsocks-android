@@ -111,5 +111,6 @@ object Console {
     }
   }
 
-  def isRoot: Boolean = SU.available()
+  // def isRoot: Boolean = SU.available()
+  def isRoot: Boolean = false
 }
