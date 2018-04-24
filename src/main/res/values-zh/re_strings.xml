@@ -99,7 +99,7 @@
     <string name="pay_no_signin_prompt">需要先注册或登录一个VIP账户，以保存您的支付记录</string>
     <string name="pay_for_x">为%s支付</string>
     <string name="pay_for_x_succeeded">您为%s支付成功！</string>
-    <string name="pay_on_phone">支付宝或PayPal</string>
+    <string name="pay_on_phone">手机支付</string>
     <string name="pay_via_google">Google Checkout</string>
     <string name="pc_pay">电脑支付</string>
 	<string name="pc_pay_prompt">把这个链接发送到电脑上打开</string>

@@ -228,16 +228,20 @@ public class OrderFragment extends BodyFragment {
 	        btnPayOnPhone.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if(dealerVersion() < 0){
-						confirmDownloadDealer(getString(R.string.dealer_download_prompt));
-					}else if(dealerVersion() < latestDealerVersion){
-						confirmDownloadDealer(getString(R.string.dealer_upgrade_prompt));
-					}else{
-						String url = "reindeer://reindeer.com/orders/inline/"+orderString;
-						Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-						intent.putExtra("root_ip", Const.getRootIp(a()));
-			            startActivity(intent);
-					}
+					// if(dealerVersion() < 0){
+					// 	confirmDownloadDealer(getString(R.string.dealer_download_prompt));
+					// }else if(dealerVersion() < latestDealerVersion){
+					// 	confirmDownloadDealer(getString(R.string.dealer_upgrade_prompt));
+					// }else{
+					// 	String url = "reindeer://reindeer.com/orders/inline/"+orderString;
+					// 	Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+					// 	intent.putExtra("root_ip", Const.getRootIp(a()));
+			  //           startActivity(intent);
+					// }
+					String url = "http://"+Const.getRootIp(a())+"/orders/inline/"+ orderString;
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+					intent.putExtra("root_ip", Const.getRootIp(a()));
+		            startActivity(intent);
 				}
 			});
 //			if(dealerVersion() < latestDealerVersion){

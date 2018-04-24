@@ -99,7 +99,7 @@
     <string name="pay_for_redundant">This order has been paid</string>
     <string name="pay_for_x">Pay for %s</string>
     <string name="pay_for_x_succeeded">You have paid for %s successfully</string>
-    <string name="pay_on_phone">PayPal or Alipay</string>
+    <string name="pay_on_phone">Pay on phone</string>
     <string name="pay_via_google">Google Checkout</string>
     <string name="pc_pay">Pay on PC</string>
 	<string name="pc_pay_prompt">Send the link to and open it on your PC</string>

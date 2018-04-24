@@ -1,0 +1,2 @@
+sbt android:package-release
+adb install -r target/android-bin/reindeer-release.apk
