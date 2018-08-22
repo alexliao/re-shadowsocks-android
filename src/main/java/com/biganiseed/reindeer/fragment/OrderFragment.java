@@ -328,6 +328,11 @@ public class OrderFragment extends BodyFragment {
 						username = Tools.urlSafeUnescape(orderInfo.split("-")[0]);
 						plan = order.getJSONObject("plan");
 						paid = order.optBoolean("paid");
+						
+						// Refresh user
+						JSONObject user = order.getJSONObject("user");
+						Tools.setCurrentUser(a(), user);
+
 						latestDealerVersion = order.optInt("latest_dealer_version");
 						handler.post(new Runnable(){
 							@Override

@@ -528,11 +528,18 @@ public class Api {
 
 	static public JSONObject ensureUser(Context context) throws Exception{
 		JSONObject user;
-	    if(Tools.getCurrentUser(context) == null)
-	    	user = Api.trialAgain(context, "");
-	    else
-	    	user = Api.getUser(context);
-		return user;
+        try {
+            String url = Const.getRootHttp(context) + "/users/ensure.json?" + Tools.getClientParameters(context);
+            // List <NameValuePair> params = new ArrayList <NameValuePair>();
+            // params.add(new BasicNameValuePair("_method", "PUT"));
+            // HttpResponse httpResp = post(url, params, context);
+            HttpResponse httpResp = get(url, context);
+            String strResult = EntityUtils.toString(httpResp.getEntity());
+            user = new JSONObject(strResult);
+            return user;
+        } catch (Exception e) {
+                throw new Exception(e.getMessage());
+        }
 	}
 
 	static public void terms(final Context context){

@@ -13,6 +13,7 @@ import com.biganiseed.reindeer.fragment.SwitcherFragment;
 import com.biganiseed.reindeer.googlebilling.GoogleBilling;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
+import org.json.JSONObject;
 
 public class MainActivity extends ReindeerActivity {
 	public static final int TERMS = 101;
@@ -103,7 +104,9 @@ public class MainActivity extends ReindeerActivity {
 			@Override public void run() {
 				try {
 					Api.checkDns(MainActivity.this); // refresh root ip each time open the app;
-				} catch (Exception e) {	/*throw new RuntimeException(e);*/	}
+                    JSONObject user = Api.ensureUser(MainActivity.this);
+                    Tools.setCurrentUser(MainActivity.this, user);				
+                } catch (Exception e) {	/*throw new RuntimeException(e);*/	}
 			}
 		}, new Runnable(){@Override	public void run() {	/*initShortcuts();*/ }});
 

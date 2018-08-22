@@ -118,22 +118,22 @@ public class PlansFragment extends BodyFragment {
 		btnPay.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(Tools.getBindingUsername(a()) == null){
-					Tools.confirm(a(), null, getString(R.string.pay_no_signin_prompt))
-					.setPositiveButton(getString(R.string.signup), new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							startActivity(new Intent(a(), Signup.class));
-						}
-					})
-					.setNegativeButton(getString(R.string.signin), new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							startActivity(new Intent(a(), Signin.class));
-						}
-					})
-					.show();
-				}else{
+				// if(Tools.getBindingUsername(a()) == null){
+				// 	Tools.confirm(a(), null, getString(R.string.pay_no_signin_prompt))
+				// 	.setPositiveButton(getString(R.string.signup), new DialogInterface.OnClickListener() {
+				// 		@Override
+				// 		public void onClick(DialogInterface dialog, int which) {
+				// 			startActivity(new Intent(a(), Signup.class));
+				// 		}
+				// 	})
+				// 	.setNegativeButton(getString(R.string.signin), new DialogInterface.OnClickListener() {
+				// 		@Override
+				// 		public void onClick(DialogInterface dialog, int which) {
+				// 			startActivity(new Intent(a(), Signin.class));
+				// 		}
+				// 	})
+				// 	.show();
+				// }else{
 					try {
 	//					url = "reindeer://reindeer.com/orders/inline/"+Tools.genOrderString(Tools.getCurrentUsername(a()), genOrderId(), plans.optJSONObject(currentPlanIndex), "");
 	//					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -150,7 +150,7 @@ public class PlansFragment extends BodyFragment {
 					} catch (Exception e) {
 						Toast.makeText(a(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 					}
-				}
+				// }
 			}
 		});
 
@@ -213,7 +213,7 @@ public class PlansFragment extends BodyFragment {
 //		txtFullVersion.setText(String.format(getString(R.string.full_version_x), fullVersionUrl));
 
 		btnPay.setEnabled(true);
-		Tools.setTextEnabled(a(), btnPay, (Tools.getBindingUsername(a()) != null));
+		Tools.setTextEnabled(a(), btnPay, true);
 	
 	}
 	

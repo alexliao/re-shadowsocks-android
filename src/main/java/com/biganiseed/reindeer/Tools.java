@@ -99,9 +99,10 @@ public class Tools {
 					+ "&sdk=" + Build.VERSION.SDK_INT 
 					+ "&model="+URLEncoder.encode(Build.MODEL) 
 					+ "&uuid=" + Tools.getDeviceUUID(context)
-					+ "&username_encoded=" + URLEncoder.encode(Tools.xor_decrypt(Tools.getCurrentUsername(context)))
 					;
-			if(Tools.getCurrentUser(context) != null) ret += "&password_encrypted=" + URLEncoder.encode(Tools.getCurrentUser(context).optString("password_encrypted"));
+            if(Tools.getCurrentUsername(context) != null)
+                ret += "&username_encoded=" + URLEncoder.encode(Tools.xor_decrypt(Tools.getCurrentUsername(context)));
+ 			if(Tools.getCurrentUser(context) != null) ret += "&password_encrypted=" + URLEncoder.encode(Tools.getCurrentUser(context).optString("password_encrypted"));
 			if(Const.IS_RESELLER) ret += "&is_reseller=true";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -141,13 +142,8 @@ public class Tools {
 
     public static String getCurrentUsername(Context context){
     	String result = null;
-    	result = getBindingUsername(context);
-    	if(result == null)
-			try {
-				result = getDeviceUUID(context);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+        JSONObject user = getCurrentUser(context);
+        if(user != null) result = user.optString("username");
     	return result;
     }
     
@@ -159,9 +155,11 @@ public class Tools {
 		if(user == null) return null;
 		
 		String username = user.optString("username");
-		try {
-			if(!username.equals(getDeviceUUID(context))) result = username;
-		} catch (UnsupportedEncodingException e) {
+        boolean isAuto = user.optBoolean("is_auto");
+        String uuid = user.optString("uuid");
+        try{
+            if(!isAuto || !getDeviceUUID(context).equals(uuid)) result = username;
+        }catch(UnsupportedEncodingException e){
 			e.printStackTrace();
 		}
 		return result;

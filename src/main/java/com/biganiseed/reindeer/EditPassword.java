@@ -17,6 +17,8 @@ public class EditPassword extends Binding {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        JSONObject user = Tools.getCurrentUser(this);
+        Tools.setPrefString(this, "lastBindingEmail", user.optString("username"));
         super.onCreate(savedInstanceState);
         editEmail.setEnabled(false);
         editEmail.setSelectAllOnFocus(false);

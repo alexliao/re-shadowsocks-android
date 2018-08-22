@@ -69,14 +69,7 @@ public class AccountFragment extends BodyFragment {
     public void onStart(){
     	super.onStart();
         HeaderFragment.setTitle(a(), getString(R.string.menu_account));
-		ga().ayncRun(new Runnable(){
-			@Override public void run() {
-				try {
-					JSONObject user = Api.ensureUser(a());
-					Tools.setCurrentUser(a(), user);
-				} catch (Exception e) {	throw new RuntimeException(e);	}
-			}
-		}, new Runnable(){@Override	public void run() {	bind(getView());}});
+        bind(getView());
     }
 
     @Override
@@ -113,6 +106,7 @@ public class AccountFragment extends BodyFragment {
     	View btnSignup = v.findViewById(R.id.btnSignup);
     	View btnSignout = v.findViewById(R.id.btnSignout);
     	View btnBuy = v.findViewById(R.id.btnBuy);
+        View btnChangePassword = v.findViewById(R.id.btnChangePassword);
     	
     	final JSONObject user = Tools.getCurrentUser(a());
     	
@@ -124,10 +118,18 @@ public class AccountFragment extends BodyFragment {
 			}
 		});
 
+        txtBindingEmail.setText(String.format(getString(R.string.account_binding_email_x), user.optString("username")));
+        btnChangePassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(a(), EditPassword.class));
+            }
+        });
     	final String bindingUsername = Tools.getBindingUsername(a());
     	if(bindingUsername == null){
 //    		txtNoBinding.setVisibility(View.VISIBLE);
-    		txtBindingEmail.setVisibility(View.GONE);
+            txtBindingEmail.setVisibility(View.VISIBLE);
+            btnChangePassword.setVisibility(View.VISIBLE);
     		btnSignin.setVisibility(View.VISIBLE);
     		btnSignup.setVisibility(View.VISIBLE);
     		btnSignout.setVisibility(View.GONE);
@@ -156,14 +158,6 @@ public class AccountFragment extends BodyFragment {
     		btnSignup.setVisibility(View.GONE);
     		btnSignout.setVisibility(View.VISIBLE);
     		
-    		txtBindingEmail.setText(String.format(getString(R.string.account_binding_email_x), bindingUsername));
-    		txtBindingEmail.setOnClickListener(new View.OnClickListener(){
-				@Override
-				public void onClick(View v) {
-					startActivity(new Intent(a(), EditPassword.class));
-				}
-			});
-
     		Drawable d = this.getResources().getDrawable(R.drawable.re_email);
         	d.setBounds(0, 0, d.getMinimumWidth(), d.getMinimumHeight());
     		txtExpires.setCompoundDrawables(null, null, d, null);

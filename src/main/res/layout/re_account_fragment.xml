@@ -32,9 +32,13 @@
 		<TextView android:id="@+id/txtBindingEmail"
 	        style="@style/account_txt"
 	        android:layout_width="match_parent"
-	        android:drawableRight="@drawable/re_ic_action_edit"
+	        />
+		<TextView android:id="@+id/btnChangePassword"
+	        style="@style/account_txt"
+	        android:layout_width="match_parent"
+	        android:text="@string/edit_password"
+	        android:drawableLeft="@drawable/re_ic_action_edit"
 	        android:clickable="true"
-			android:visibility="gone"
 	        />
 		</LinearLayout>
 			
