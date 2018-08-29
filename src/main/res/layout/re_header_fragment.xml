@@ -74,6 +74,19 @@
 			android:layout_centerHorizontal="true"
 			android:clickable="true"
 	        />
+	    <ImageView android:id="@+id/btnMenu2"
+	        android:layout_width="32dp"
+	        android:layout_height="32dp"
+	        android:scaleType="centerInside"
+	        android:src="@drawable/re_ic_menu_moreoverflow_normal_holo_dark"
+            android:layout_alignBottom="@+id/imgHeader"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginBottom="22dp"
+	        android:layout_marginRight="22dp"
+	        android:background="@drawable/re_nav_btn_bg"
+	        android:clickable="true"
+	        android:visibility="invisible"
+	        />
         <ImageView
             android:id="@+id/btnShare"
             android:layout_width="32dp"

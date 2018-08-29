@@ -43,6 +43,7 @@ import java.util.TimerTask;
 
 import android.widget.CheckBox;
 import com.github.shadowsocks.utils.*;
+import android.content.res.Configuration;
 
 public class SwitcherFragment extends BodyFragment {
 	public static final int CONNECT = 100;
@@ -515,7 +516,7 @@ return;
 	
 	@Override
     public boolean collapseHeader(){
-    	return false;
+		return a().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
 	void initShortcuts(){

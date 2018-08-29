@@ -9,5 +9,6 @@
 	<dimen name="headerHeight">215dp</dimen>
 	<dimen name="headerHeightCollapsed">60dp</dimen>
 	<dimen name="textSize">16sp</dimen>
+	<dimen name="switcherTop">120dp</dimen>
 		
 </resources>

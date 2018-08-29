@@ -29,7 +29,7 @@ public class HeaderFragment extends ReindeerFragment {
 	public static final String KEY_COLLAPSE = "collapse";
 	
 	TextView txtTitle;
-	View btnMenu, btnClose;
+	View btnMenu, btnMenu2, btnClose, btnShare;
 	View viewFront, viewBack;
 	View btnAccount, btnHelp, btnLogo, btnHome, imgHeader;
 	
@@ -72,8 +72,7 @@ public class HeaderFragment extends ReindeerFragment {
 		viewFront = v.findViewById(R.id.viewFront);
 		viewBack = v.findViewById(R.id.viewBack);
 		
-		btnMenu = v.findViewById(R.id.btnMenu);
-		btnMenu.setOnClickListener(new View.OnClickListener(){
+		View.OnClickListener menuListener = new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
 //				uncollapse();
@@ -90,7 +89,11 @@ public class HeaderFragment extends ReindeerFragment {
 			    });
 			    popup.show();
 			}
-        });
+        };
+		btnMenu = v.findViewById(R.id.btnMenu);
+		btnMenu.setOnClickListener(menuListener);
+		btnMenu2 = v.findViewById(R.id.btnMenu2);
+		btnMenu2.setOnClickListener(menuListener);
 
 //		btnClose = v.findViewById(R.id.btnClose);
 //		btnClose.setOnClickListener(new View.OnClickListener(){
@@ -135,7 +138,7 @@ public class HeaderFragment extends ReindeerFragment {
         });
 
         
-    	View btnShare = v.findViewById(R.id.btnShare);
+    	btnShare = v.findViewById(R.id.btnShare);
     	btnShare.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -207,6 +210,8 @@ public class HeaderFragment extends ReindeerFragment {
 	        float density = a().getResources().getDisplayMetrics().density;
 //			btnMenu.setTranslationY(145f*density);
 	        btnHome.setVisibility(View.VISIBLE);
+	        btnMenu2.setVisibility(View.VISIBLE);
+	        btnShare.setVisibility(View.INVISIBLE);
 			ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", -150f*density);
 			animator.setDuration(getResources().getInteger(R.integer.config_longAnimTime));
 			animator.start();
@@ -219,6 +224,8 @@ public class HeaderFragment extends ReindeerFragment {
     	if(isCollapsed()){
 //			btnMenu.setTranslationY(0f);
 	        btnHome.setVisibility(View.INVISIBLE);
+	        btnMenu2.setVisibility(View.INVISIBLE);
+	        btnShare.setVisibility(View.VISIBLE);
 			ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", 0f);
 			animator.setDuration(getResources().getInteger(R.integer.config_longAnimTime));
 			animator.start();
