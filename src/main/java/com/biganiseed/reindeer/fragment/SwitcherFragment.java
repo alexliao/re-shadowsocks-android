@@ -41,6 +41,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.widget.CheckBox;
+import com.github.shadowsocks.utils.*;
+
 public class SwitcherFragment extends BodyFragment {
 	public static final int CONNECT = 100;
     private ReindeerSwitcher connectToggleButton;
@@ -117,6 +120,20 @@ public class SwitcherFragment extends BodyFragment {
     
     void bind(View v){
     	if(v == null) return;
+
+        final CheckBox chkBypass = (CheckBox) v.findViewById(R.id.chkBypass);
+        chkBypass.setChecked(Tools.getPrefBoolean(a(), Key.isGFWList(), Const.DEFAULT_SMART_ROUTE));
+        chkBypass.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(chkBypass.isChecked())
+					Toast.makeText(a(), getString(R.string.bypass_chn_on), Toast.LENGTH_LONG).show();
+				else
+					Toast.makeText(a(), getString(R.string.bypass_chn_off), Toast.LENGTH_LONG).show();
+				Tools.setPrefBoolean(a(), Key.isGFWList(), chkBypass.isChecked());
+				a().sendBroadcast(new Intent(Action.CLOSE()));
+			}
+		});
     	
     	txtAccount = (TextView) v.findViewById(R.id.txtAccount);
     	txtAccount.setOnClickListener(new View.OnClickListener(){

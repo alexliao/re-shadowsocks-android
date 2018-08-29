@@ -30,7 +30,9 @@
     <string name="binding_password_hint">Password</string>  
     <string name="binding_password_confirm_hint">Password again</string>  
     <string name="buy">Buy</string>  
-    <string name="bypass_chn">Smart Route (Bypass chinese sites)</string>  
+    <string name="bypass_chn">Bypass chinese sites</string>  
+    <string name="bypass_chn_on">Direct link to chinese sites with best speed and lowest traffic</string>
+    <string name="bypass_chn_off">All websites are linked via proxy without missing</string>
     <string name="cancel">Cancel</string>  
     <string name="checking_update">Checking update...</string>  
     <string name="cloud_update">Reindeer Update</string>  
@@ -76,7 +78,7 @@
     <string name="init_paypal">Initializing PayPal...</string>
     <string name="re_loading">Loading...</string>
     <string name="menu_apps">Per-App Proxy</string>
-    <string name="menu_about">Check version</string>
+    <string name="menu_about">About</string>
     <string name="menu_account">Account</string>
     <string name="menu_faq">FAQ</string>
     <string name="menu_help">Help</string>

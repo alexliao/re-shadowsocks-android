@@ -34,6 +34,13 @@
             android:layout_marginTop="10dp"
             android:clickable="true"
             />
+        <CheckBox android:id="@+id/chkBypass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bypass_chn"
+            android:layout_marginTop="@dimen/padding"       
+            />
+
     </LinearLayout>
     <LinearLayout android:id="@+id/webIcons"
         android:orientation="horizontal"

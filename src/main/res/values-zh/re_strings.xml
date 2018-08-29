@@ -30,7 +30,9 @@
     <string name="binding_password_hint">密码</string>  
     <string name="binding_password_confirm_hint">再输入一遍密码</string>  
     <string name="buy">购买</string>  
-    <string name="bypass_chn">智能分流（国内网站不走代理）</string>  
+    <string name="bypass_chn">国内直连</string>
+    <string name="bypass_chn_on">国内网站不走代理，速度更快更省流量</string>
+    <string name="bypass_chn_off">所有网站都走代理，不会遗漏</string>
     <string name="cancel">取消</string>  
     <string name="checking_update">正在检查更新...</string>
    	<string name="cloud_update">寻路更新</string>
@@ -76,7 +78,7 @@
     <string name="init_paypal">正在初始化 PayPal...</string>
     <string name="re_loading">加载中...</string>
     <string name="menu_apps">分应用代理</string>
-    <string name="menu_about">检查新版本</string>
+    <string name="menu_about">关于</string>
     <string name="menu_account">账户</string>
     <string name="menu_log">日志</string>
     <string name="menu_faq">常见问题</string>

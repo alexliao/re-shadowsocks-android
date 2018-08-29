@@ -96,15 +96,15 @@ public class HelpFragment extends BodyFragment {
 			}
 		});
 
-        final CheckBox chkBypass = (CheckBox) v.findViewById(R.id.chkBypass);
-        chkBypass.setChecked(Tools.getPrefBoolean(a(), Key.isGFWList(), Const.DEFAULT_SMART_ROUTE));
-        chkBypass.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Tools.setPrefBoolean(a(), Key.isGFWList(), chkBypass.isChecked());
-				a().sendBroadcast(new Intent(Action.CLOSE()));
-			}
-		});
+  //       final CheckBox chkBypass = (CheckBox) v.findViewById(R.id.chkBypass);
+  //       chkBypass.setChecked(Tools.getPrefBoolean(a(), Key.isGFWList(), Const.DEFAULT_SMART_ROUTE));
+  //       chkBypass.setOnClickListener(new View.OnClickListener() {
+		// 	@Override
+		// 	public void onClick(View v) {
+		// 		Tools.setPrefBoolean(a(), Key.isGFWList(), chkBypass.isChecked());
+		// 		a().sendBroadcast(new Intent(Action.CLOSE()));
+		// 	}
+		// });
         
         return v;
     }

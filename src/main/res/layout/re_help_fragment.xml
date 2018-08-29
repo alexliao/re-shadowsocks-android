@@ -10,12 +10,6 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 	    />
-	<CheckBox android:id="@+id/chkBypass"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="@string/bypass_chn"
-		android:layout_marginTop="@dimen/padding"	    
-	    />
 	<LinearLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
@@ -23,6 +17,7 @@
 		android:layout_marginTop="@dimen/padding"	    
 	    >
 	    <Button android:id="@+id/btnFlushDns"
+	        android:visibility="gone"
 	        android:text="@string/flush_dns"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
