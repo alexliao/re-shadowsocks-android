@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.biganiseed.reindeer"
-    android:versionCode="1910"
-    android:versionName="1.91">
+    android:versionCode="1920"
+    android:versionName="1.92">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
